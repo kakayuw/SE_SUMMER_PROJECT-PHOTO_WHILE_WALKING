@@ -3,24 +3,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"	
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/data/mongo   
-    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     http://www.springframework.org/schema/beans" >
 	
-
-	
-	
 	<!-- Bean -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close" p:driverClass="com.mysql.jdbc.Driver"
-		p:jdbcUrl="jdbc:mysql://localhost:3306/bookstore" p:user="root"
+		p:jdbcUrl="jdbc:mysql://localhost:3306/photo_walking" p:user="root"
 		p:password="970421" p:maxPoolSize="40" p:minPoolSize="1"
 		p:initialPoolSize="1" p:maxIdleTime="20" />
 
@@ -29,9 +23,6 @@
 		p:dataSource-ref="dataSource">
 		<property name="mappingResources">
 			<list>
-				<value>model/Book.hbm.xml</value>
-				<value>model/Order.hbm.xml</value>
-				<value>model/Orderitem.hbm.xml</value>
 				<value>model/User.hbm.xml</value>
 			</list>
 		</property>
@@ -47,32 +38,15 @@
 	</bean>
 
 	<!-- DAO Bean -->
-	<bean id="bookDao" class="dao.impl.BookDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="orderDao" class="dao.impl.OrderDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	<bean id="orderitemDao" class="dao.impl.OrderitemDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
 	<bean id="userDao" class="dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<bean id="bookdetailDao" class="dao.impl.BookdetailDaoImpl">
-		<property name="mongoTemplate" ref="mongoTemplate" />
-	</bean>
-
 
 
 	<!-- Service -->
 	<bean id="appService" class="service.impl.AppServiceImpl">
 		<!-- DAO -->
-		<property name="bookDao" ref="bookDao"></property>
-		<property name="orderDao" ref="orderDao"></property>
-		<property name="orderitemDao" ref="orderitemDao"></property>
 		<property name="userDao" ref="userDao"></property>
-		<property name="bookdetailDao" ref="bookdetailDao"></property>
 	</bean>
 	
 
@@ -93,22 +67,4 @@
 		<aop:pointcut id="beanPointcut" expression="bean(appService)" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="beanPointcut" />
 	</aop:config>
-	
-	<mongo:mongo host="127.0.0.1" port="27017"/>
-	
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">   
-	     <constructor-arg ref="mongo"/>   
-	     <constructor-arg name="databaseName" value="bookstore"/>   
-	</bean>
-	<bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
-  	  	<constructor-arg ref="mongoDbFactory" />
- 		<constructor-arg ref="mongoConverter" />	  	
-	</bean>
-
-	<mongo:db-factory id="mongoDbFactory" dbname="bookstore" mongo-ref="mongo" />
- 	  
-	<mongo:mapping-converter id="mongoConverter" base-package="org.baeldung.converter">
-	    <mongo:custom-converters base-package="org.baeldung.converter"/>
-	</mongo:mapping-converter>
-
 </beans>

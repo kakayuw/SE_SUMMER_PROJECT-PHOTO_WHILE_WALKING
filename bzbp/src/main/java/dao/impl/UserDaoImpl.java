@@ -2,11 +2,10 @@ package dao.impl;
 
 import java.util.List;
 
-import model.User;
-
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import dao.UserDao;
+import model.User;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
@@ -24,50 +23,43 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 	public User getUserById(int id) {
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) getHibernateTemplate().find(
-				"from User as u where u.id=?", id);
+		List<User> users = (List<User>) getHibernateTemplate().find("from User as u where u.id=?", id);
 		User user = users.size() > 0 ? users.get(0) : null;
 		return user;
 	}
 
-	public User getUserByUsername(String username){
+	public User getUserByUsername(String username) {
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) getHibernateTemplate().find(
-				"from User as u where u.username=?", username);
+		List<User> users = (List<User>) getHibernateTemplate().find("from User as u where u.username=?", username);
 		User user = users.size() > 0 ? users.get(0) : null;
-		return user;		
+		return user;
 	}
-	
-	
+
 	public List<User> getAllUsers() {
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) getHibernateTemplate()
-				.find("from User");
+		List<User> users = (List<User>) getHibernateTemplate().find("from User");
 		return users;
 	}
-	
-	public boolean login_ok(String username, String password){
+
+	public boolean login(String username, String password) {
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) getHibernateTemplate().find(
-				"from User as u where u.username=? and u.password=?", username, password);
-		if (users.size() > 0){
+		List<User> users = (List<User>) getHibernateTemplate()
+				.find("from User as u where u.username=? and u.password=?", username, password);
+		if (users.size() > 0) {
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
-	
-	public boolean duplicate_username(String username){
+
+	public boolean duplicate(String username) {
 		@SuppressWarnings("unchecked")
-		List<User> users = (List<User>) getHibernateTemplate().find(
-				"from User as u where u.username=?", username);
-		if (users.size() > 0){ //duplicate
+		List<User> users = (List<User>) getHibernateTemplate().find("from User as u where u.username=?", username);
+		if (users.size() > 0) { // duplicate
 			return true;
-		}
-		else{
+		} else {
 			return false;
-		}		
+		}
 	}
 
 }

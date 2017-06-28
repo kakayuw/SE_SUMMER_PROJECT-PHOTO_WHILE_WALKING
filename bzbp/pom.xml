@@ -32,7 +32,7 @@
 
 		<ognl.version>3.0</ognl.version>
 
-		<spring.core.version>4.3.8.RELEASE</spring.core.version>
+		<spring.core.version>3.0.5.RELEASE</spring.core.version>
 
 		<struts.core.version>2.2.1</struts.core.version>
 
@@ -50,62 +50,6 @@
 	</properties>
 
 	<dependencies>
-	    <dependency>
-        	<groupId>org.springframework.data</groupId>
-        	<artifactId>spring-data-mongodb</artifactId>
-        	<version>1.10.3.RELEASE</version>
-    	</dependency>
-    	<dependency>
-    		<groupId>org.mongodb</groupId>
-    		<artifactId>mongo-java-driver</artifactId>
-    		<version>3.4.2</version>
-		</dependency>
-		<dependency>
-    		<groupId>org.springframework.data</groupId>
-    		<artifactId>spring-data-commons</artifactId>
-    		<version>1.13.3.RELEASE</version>
-		</dependency>
-		<dependency>    
-		    <groupId>net.sf.json-lib</groupId>    
-		    <artifactId>json-lib</artifactId>    
-		    <version>2.4</version>    
-		    <classifier>jdk15</classifier>    
-		</dependency>  
-		<dependency>
-	    <groupId>net.sf.ezmorph</groupId>
-	   	 	<artifactId>ezmorph</artifactId>
-	    	<version>1.0.6</version>
-		</dependency>
-		<dependency>
-    <groupId>commons-beanutils</groupId>
-    <artifactId>commons-beanutils</artifactId>
-    <version>1.9.3</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-collections4</artifactId>
-    <version>4.1</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    <version>3.5</version>
-</dependency>
-<dependency>
-    <groupId>commons-logging</groupId>
-    <artifactId>commons-logging</artifactId>
-    <version>1.2</version>
-</dependency>
-<dependency>
-    <groupId>org.apache.struts</groupId>
-    <artifactId>struts2-json-plugin</artifactId>
-    <version>2.5.10.1</version>
-</dependency>
-		<dependency>
-		    <groupId>org.apache.struts</groupId>
-		    <artifactId>struts2-json-plugin</artifactId>
-		    <version>2.5.10.1</version>
-		</dependency>
 		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
@@ -269,18 +213,17 @@
 			<artifactId>xwork-core</artifactId>
 			<version>${xwork.core.version}</version>
 		</dependency>
-
-		<!-- Javax Servlet -->
+		
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${javax.servlet-api.version}</version>
-			<scope>provided</scope>
+    		<groupId>net.sf.json-lib</groupId>
+    		<artifactId>json-lib</artifactId>
+    		<version>2.1</version>
+    		<classifier>jdk15</classifier>
 		</dependency>
 
 	</dependencies>
 	<build>
-		<finalName>BookStore</finalName>
+		<finalName>bzbp</finalName>
 
 		<plugins>
 			<plugin>
@@ -306,7 +249,7 @@
 			</plugin>
 
 		</plugins>
-	</build> 
+	</build>
  	
 
 </project>

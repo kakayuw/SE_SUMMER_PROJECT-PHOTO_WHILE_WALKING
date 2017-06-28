@@ -13,13 +13,13 @@ public interface UserDao {
 	public void update(User user);
 
 	public User getUserById(int id);
-	
-	public User getUserByUsername(String username);
-	
-	public List<User> getAllUsers();
-	
-	public boolean login_ok(String username, String password);
 
-	public boolean duplicate_username(String username);
+	public User getUserByUsername(String username);
+
+	public List<User> getAllUsers();
+
+	public boolean login(String username, String password);
+
+	public boolean duplicate(String username);
 
 }

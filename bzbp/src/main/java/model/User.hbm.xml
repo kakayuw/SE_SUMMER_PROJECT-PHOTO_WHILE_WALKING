@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
- <class name="model.User" table="users">
+ <class name="model.User" table="user">
   <id name="id" type="int">
    <column name="id"/>
    <generator class="identity"/>
@@ -14,19 +14,10 @@
    <column name="password"/>
   </property>
   <property generated="never" lazy="false" name="role" type="java.lang.String">
-   <column name="role"/>
-  </property>
-  <property generated="never" lazy="false" name="name" type="java.lang.String">
-   <column name="name"/>
-  </property>
-  <property generated="never" lazy="false" name="gender" type="java.lang.String">
-   <column name="gender"/>
+   <column name="email"/>
   </property>
   <property generated="never" lazy="false" name="phonenumber" type="java.lang.String">
-   <column name="phonenumber"/>
-  </property>
-  <property generated="never" lazy="false" name="address" type="java.lang.String">
-   <column name="address"/>
+   <column name="phone"/>
   </property>
  </class>
 </hibernate-mapping>
