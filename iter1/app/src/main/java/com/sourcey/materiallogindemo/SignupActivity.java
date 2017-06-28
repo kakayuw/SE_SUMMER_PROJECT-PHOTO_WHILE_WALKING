@@ -29,7 +29,7 @@ import com.google.gson.Gson;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     public static User newuser;
-    public static String ip = "192.168.1.5:8080/BookStore";
+    public static String ip = "192.168.1.184:8080/BZBP";
     private static String res = "failed";
     public String sendHttpPost(String getUrl, User user) {
         HttpURLConnection urlConnection = null;
@@ -147,7 +147,7 @@ public class SignupActivity extends AppCompatActivity {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                final String result = sendHttpPost("http://"+ip+"/rest/addUser", newuser);
+                final String result = sendHttpPost("http://"+ip+"/signup", newuser);
                 res = result;
             }}).start();
 
@@ -201,7 +201,7 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (mobile.isEmpty() || mobile.length()!=10) {
+        if (mobile.isEmpty() || mobile.length()!=11) {
             _mobileText.setError("Enter Valid Mobile Number");
             valid = false;
         } else {

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    public static String ip="";
+    public static String ip="192.168.1.184:8080/BZBP";
     public boolean valid;
 
     @Bind(R.id.input_username) EditText _usernameText;
