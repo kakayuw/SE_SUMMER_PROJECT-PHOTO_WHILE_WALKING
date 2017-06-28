@@ -2,18 +2,39 @@ package service.impl;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import dao.UserDao;
 import model.User;
 import service.AppService;
+=======
+
+import model.User;
+import service.AppService;
+
+
+import dao.UserDao;
+>>>>>>> 23cbde1e67f4144d43181cb3e4c4342acae79aa6
 
 /**
- * @author seniyuting
  * @version 1.0
  * 
  */
 public class AppServiceImpl implements AppService {
+<<<<<<< HEAD
 	private UserDao userDao;
 
+=======
+
+
+	private UserDao userDao;
+
+
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+>>>>>>> 23cbde1e67f4144d43181cb3e4c4342acae79aa6
 	/**
 	 * user
 	 * 

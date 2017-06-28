@@ -2,6 +2,10 @@ package service;
 
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 23cbde1e67f4144d43181cb3e4c4342acae79aa6
 import model.User;
 
 /**
