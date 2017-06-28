@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="model.Orderitem" table="orderitems">
+  <id name="id" type="int">
+   <column name="id"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="orderid" type="int">
+   <column name="orderid"/>
+  </property>
+  <property generated="never" lazy="false" name="bookid" type="int">
+   <column name="bookid"/>
+  </property>
+  <property generated="never" lazy="false" name="amount" type="int">
+   <column name="amount"/>
+  </property>
+  <property generated="never" lazy="false" name="price" type="double">
+   <column name="price"/>
+  </property>
+ </class>
+</hibernate-mapping>
