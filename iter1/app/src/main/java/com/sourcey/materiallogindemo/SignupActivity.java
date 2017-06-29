@@ -32,12 +32,10 @@ public class SignupActivity extends AppCompatActivity {
     public static String ip = "192.168.1.165:8080/BookStore/rest";
     private static String res = "failed";
     public String sendHttpPost(String getUrl, User user) {
-        Log.d(TAG,"BEFORE CONN");
         HttpURLConnection urlConnection = null;
         URL url = null;
         String result = null;
         try {
-            Log.d(TAG,"BEFORE URL");
             url = new URL(getUrl);
             urlConnection = (HttpURLConnection) url.openConnection();//打开http连接
             urlConnection.setConnectTimeout(3000);//连接的超时时间
@@ -49,11 +47,9 @@ public class SignupActivity extends AppCompatActivity {
             urlConnection.setDoOutput(true);//设置这个连接是否可以输出数据
             urlConnection.setRequestMethod("POST");//设置请求的方式
             urlConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");//设置消息的类型
-            Log.d(TAG,"BEFORE url conn");
             urlConnection.connect();// 连接，从上述至此的配置必须要在connect之前完成，实际上它只是建立了一个与服务器的TCP连接
             Gson gson = new Gson();
             String jsonstring = gson.toJson(user);
-            Log.d(TAG,"BEFORE FLUSH");
             //------------字符流写入数据------------
             OutputStream out = urlConnection.getOutputStream();//输出流，用来发送请求，http请求实际上直到这个函数里面才正式发送出去
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out));//创建字符流对象并用高效缓冲流包装它，便获得最高的效率,发送的是字符串推荐用字符流，其它数据就用字节流
@@ -61,7 +57,6 @@ public class SignupActivity extends AppCompatActivity {
             bw.flush();//刷新缓冲区，把数据发送出去，这步很重要
             out.close();
             bw.close();//使用完关闭
-            Log.d(TAG,"before receive");
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {//得到服务端的返回码是否连接成功
 
                 //------------字符流读取服务端返回的数据------------
@@ -74,14 +69,11 @@ public class SignupActivity extends AppCompatActivity {
                 }
                 result = buffer.toString();
                 res = result;
-                Log.d(TAG,"result");
                 in.close();
                 br.close();
 
             }
-            Log.d(TAG,"ddddddd");
         } catch (Exception e) {
-            Log.d(TAG,"ddddddfdfdfdfdfdd");
         } finally {
             urlConnection.disconnect();//使用完关闭TCP连接，释放资源
             return result;
@@ -123,7 +115,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() {
-        Log.d(TAG, "Signup up up up !");
+        Log.d(TAG, "Sign up");
 
         if (!validate()) {
             onSignupFailed();
@@ -154,7 +146,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /*res = */sendHttpPost("http://"+ip+"/signup", newuser);
-                Log.d(TAG,"IN RUN");
             }}).start();
 
         new android.os.Handler().postDelayed(
