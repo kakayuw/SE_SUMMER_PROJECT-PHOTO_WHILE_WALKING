@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    public static String ip="192.168.1.184:8080/BZBP";
+    public static String ip="192.168.1.165:8080/BookStore/rest";
     public boolean valid;
 
     @Bind(R.id.input_username) EditText _usernameText;
@@ -93,9 +93,10 @@ public class LoginActivity extends AppCompatActivity {
             bw.flush();//刷新缓冲区，把数据发送出去，这步很重要
             out.close();
             bw.close();//使用完关闭
-
+            Log.d(TAG, Integer.toString(urlConnection.getResponseCode()));
+            int d = urlConnection.getResponseCode();
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {//得到服务端的返回码是否连接成功
-
+                final int a = urlConnection.getResponseCode();
                 //------------字符流读取服务端返回的数据------------
                 InputStream in = urlConnection.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -107,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
+            Log.d(TAG,e.toString());
 
         } finally {
             urlConnection.disconnect();//使用完关闭TCP连接，释放资源
@@ -140,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 sendHttpPost("http://"+ip+"/login",user);
+                Log.d(TAG,"aaa");
             }}).start();
 
 
@@ -158,7 +161,6 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 1000);
-
     }
 
 
