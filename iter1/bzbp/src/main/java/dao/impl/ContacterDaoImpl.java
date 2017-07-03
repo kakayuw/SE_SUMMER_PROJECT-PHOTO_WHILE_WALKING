@@ -19,7 +19,7 @@ public class ContacterDaoImpl extends HibernateDaoSupport implements ContacterDa
 
 	@SuppressWarnings("unchecked")
 	public List<Contacter> getContacterById(int uid) {
-		return (List<Contacter>) getHibernateTemplate().find("from Contacter");
+		return (List<Contacter>) getHibernateTemplate().find("from Contacter as c where c.uid1=?", uid);
 	}
 
 	public void update(Contacter contacter) {
