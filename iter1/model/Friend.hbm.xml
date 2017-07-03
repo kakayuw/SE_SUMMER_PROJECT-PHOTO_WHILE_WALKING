@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+ <class name="model.Friend" table="friend">
+  <id name="fid" type="int">
+   <column name="fid"/>
+   <generator class="identity"/>
+  </id>
+  <property  name="uid1" type="int">
+   <column name="uid1"/>
+  </property>
+  <property  name="uid2" type="int">
+   <column name="uid2"/>
+  </property>
+  <property  name="remark" type="java.lang.String">
+   <column name="remark"/>
+  </property>
+  <property  name="auth" type="short">
+   <column name="auth"/>
+  </property>
+ </class>
+</hibernate-mapping>
