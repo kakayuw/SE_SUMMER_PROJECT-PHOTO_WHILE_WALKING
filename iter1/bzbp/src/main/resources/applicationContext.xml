@@ -50,6 +50,9 @@
 	<bean id="adminDao" class="dao.impl.AdminDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="contacterDao" class="dao.impl.ContacterDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<!-- Service -->
 	<bean id="userService" class="service.impl.UserServiceImpl">
@@ -60,6 +63,11 @@
 		<!-- DAO -->
 		<property name="adminDao" ref="adminDao"></property>
 	</bean>
+	<bean id="contacterService" class="service.impl.ContaxterServiceImpl">
+		<!-- DAO -->
+		<property name="contacterDao" ref="contacterDao"></property>
+	</bean>
+	
 
 	<!-- HibernateTransactionManager -->
 	<bean id="transactionManager"
@@ -74,7 +82,7 @@
 	</tx:advice>
 	<aop:config>
 		<!-- userService Bean -->
-		<aop:pointcut id="beanPointcut" expression="bean(userService), bean(adminService)" />
+		<aop:pointcut id="beanPointcut" expression="bean(userService),bean(adminService),bean(contacterService)" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="beanPointcut" />
 	</aop:config>
 
