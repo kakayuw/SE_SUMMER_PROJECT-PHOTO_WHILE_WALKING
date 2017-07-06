@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import model.Contacter;
 import model.Friend;
 import model.User;
 import service.UserService;
@@ -121,4 +122,28 @@ public class UserRestful
 		 result_friends.add(friend2);
 		 return result_friends;  
      }	
+	 
+	 @POST
+     @Path("/getUserByUid/{uid}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public User getUserByUid(@PathParam("uid") int uid){
+		 System.out.println("getUserByUid");
+		 System.out.println(uid);
+		 User theUser = userService.getUserByUid(uid);
+		 theUser.setPassword("");
+		 return theUser;
+	 }
+	 
+
+	 
+	 @POST
+     @Path("/getUserByUsername/{username}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public User getUserByUsername(@PathParam("username") String username){
+		 System.out.println("getUserByUsername");
+		 System.out.println(username);
+		 User theUser = userService.getUserByUsername(username);
+		 theUser.setPassword("");
+		 return theUser;
+	 }
 }

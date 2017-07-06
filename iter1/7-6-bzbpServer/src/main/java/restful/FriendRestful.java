@@ -76,6 +76,8 @@ public class FriendRestful
 		 //int uid = 1;
 		 System.out.println("getpicture");
 		 System.out.println(uid);
+
+		 
 		 response.setContentType("application/octet-stream");
 		 response.addHeader("Content-Disposition", "attachment; filename=\"acc.jpg\"");
 		 return userpicService.getPicById(uid);

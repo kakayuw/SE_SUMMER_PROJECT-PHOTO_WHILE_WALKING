@@ -20,5 +20,7 @@ public interface UserService {
 	
 	public User getUserByUid(int uid);
 	
+	public User getUserByUsername(String username);
+	
 	public void deleteUserByUid(int uid);
 }

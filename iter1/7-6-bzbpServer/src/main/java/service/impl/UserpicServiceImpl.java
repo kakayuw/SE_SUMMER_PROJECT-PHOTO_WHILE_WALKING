@@ -18,7 +18,7 @@ public class UserpicServiceImpl implements UserpicService {
 	@Override
 	public void save(int uid, File file) {
 		byte[] pic = ByteUtil.FileToString(file);
-		Userpic userpic = new Userpic(1, pic);
+		Userpic userpic = new Userpic(uid, pic);
 		userpicDao.save(userpic);
 	}
 

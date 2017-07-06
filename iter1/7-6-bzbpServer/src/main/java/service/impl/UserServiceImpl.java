@@ -49,10 +49,17 @@ public class UserServiceImpl implements UserService {
 	public User getUserByUid(int uid) {
 		return userDao.getUserById(uid);
 	}
+	
+	@Override
+	public User getUserByUsername(String username) {
+		return userDao.getUserByUsername(username);
+	}
 
 	@Override
 	public void deleteUserByUid(int uid) {
 		User user = userDao.getUserById(uid);
 		userDao.delete(user);
 	}
+
+
 }

@@ -183,12 +183,15 @@ public class UserAction extends BaseAction{
 		outputStream.close();
 	}
 
+	private static int uuid = 2;
+	
 	public String signup() {
 		if (pic != null)
-			userpicService.save(1, pic);
+			userpicService.save(uuid, pic);
 		else {
 			System.out.println("asdfasdf");
 		}
+		uuid++;
 		return "test";
 	}
 

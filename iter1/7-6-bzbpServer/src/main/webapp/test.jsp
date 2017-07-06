@@ -11,6 +11,6 @@
 		<input type="file" name="pic"/>
 		<input type="submit" value="submit" />
 	</form>
-	<img alt="asd" src="user_pic?uid=1">
+	<img alt="asd" src="user_pic?uid=2">
 </body>
 </html>
