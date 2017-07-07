@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Struts2 DTD -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<constant name="struts.action.excludePattern" value="/rest/.*" />  
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.devMode" value="true" />
+	<package name="process" extends="struts-default">
+		<action name="test" >
+			<result name="success">/bzbp/jsp/test.jsp</result>
+		</action>
+
+		<action name="profile_*" class="action.ProfileAction" method="{1}">
+			<result name="success">/bzbp/jsp/profile.jsp</result>
+		</action>
+		
+		<action name="user_*" class="action.UserAction" method="{1}">
+			<result name="success">/bzbp/jsp/user.jsp</result>
+			<result name="failed">/bzbp/jsp/user.jsp</result>
+			<result name="test" type="redirect">/test.jsp</result>
+		</action>
+		<action name="admin_*" class="action.AdminAction" method="{1}">
+			<result name="success" type="redirect">user_getAll</result>
+			<result name="login">/adminlogin.jsp</result>
+		</action>
+	</package>
+</struts>
