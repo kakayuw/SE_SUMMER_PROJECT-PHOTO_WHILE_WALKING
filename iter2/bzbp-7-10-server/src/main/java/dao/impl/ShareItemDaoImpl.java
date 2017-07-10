@@ -40,6 +40,12 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 		return shareItems;
 	}
 
-
+	@Override
+	public List<ShareItem> getShareItemByUid(int uid) {
+		@SuppressWarnings("unchecked")
+		List<ShareItem> shareItems = (List<ShareItem>) getHibernateTemplate().find(
+				"from ShareItem as s where s.uid=?", uid);
+		return shareItems;
+	}
 	
 }

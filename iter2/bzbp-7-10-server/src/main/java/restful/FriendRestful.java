@@ -82,4 +82,15 @@ public class FriendRestful
 		 return contacterService.addfriend(uid1, uid2);
      }
 	 
+	 @GET
+     @Path("/deleteFriend/{uid1}/{uid2}")
+	 @Produces("text/html")
+     public String deleteFriend(@PathParam("uid1") int uid1, @PathParam("uid2") int uid2){
+		 System.out.println("deleteFriend");
+		 System.out.println(uid1);
+		 System.out.println(uid2);
+		 contacterService.delete(uid1, uid2);
+		 return "success";
+	 }
+	 
 }

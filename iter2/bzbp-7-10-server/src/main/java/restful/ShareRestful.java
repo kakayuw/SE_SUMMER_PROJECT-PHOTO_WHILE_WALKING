@@ -47,4 +47,34 @@ public class ShareRestful {
 		 return shareItems;
 	 }
 	 
+	@GET
+    @Path("/friendGetAll/{uid}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<ShareItem> friendGetAll(@PathParam("uid") int uid){
+		 System.out.println("friendGetAll");
+		 List<ShareItem> shareItems = shareItemService.getAllbyUid(uid);
+		 
+		 return shareItems;
+	 }
+	
+	@GET
+    @Path("/myGetAll/{uid}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<ShareItem> myGetAll(@PathParam("uid") int uid){
+		 System.out.println("myGetAll");
+		 List<ShareItem> shareItems = shareItemService.getMyAll(uid);
+		 
+		 return shareItems;
+	 }
+	
+	 @POST
+     @Path("/addShare")
+	 @Produces("text/html")
+     public String signup(ShareItem shareItem){
+		 System.out.println("addShare");
+		 System.out.println(shareItem.getUid());
+		 System.out.println(shareItem.getTitle());;
+		 shareItemService.addShareItem(shareItem);
+		 return "success";
+     }
 }

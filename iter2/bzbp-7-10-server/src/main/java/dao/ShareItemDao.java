@@ -16,4 +16,5 @@ public interface ShareItemDao {
 	
 	public List<ShareItem> getAllShareItems();
 
+	public List<ShareItem> getShareItemByUid(int uid);
 }

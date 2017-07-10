@@ -32,8 +32,15 @@ public class ContacterServiceImpl implements ContacterService {
 		contacterDao.save(contacter);
 	}
 
-	public void delete(Contacter contacter) {
-		contacterDao.delete(contacter);
+	public void delete(int uid1, int uid2) {
+		Contacter contacter1 = contacterDao.getContacterByIds(uid1, uid2);
+		Contacter contacter2 = contacterDao.getContacterByIds(uid2, uid1);
+		if (contacter1 != null){ 		
+			contacterDao.delete(contacter1);
+		}
+		if (contacter2 != null){  
+			contacterDao.delete(contacter2);
+		}
 	}
 
 	public List<Contacter> getContacterById(int uid) {

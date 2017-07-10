@@ -8,4 +8,5 @@ public interface UserpicService {
 
 	public byte[] getPicById(int uid);
 
+	public void usersave(byte[] userpic, int uid);
 }

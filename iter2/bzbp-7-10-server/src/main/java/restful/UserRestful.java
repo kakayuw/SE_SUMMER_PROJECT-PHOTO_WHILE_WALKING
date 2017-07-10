@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dao.UserDao;
 import model.Contacter;
 import model.Friend;
 import model.User;
@@ -141,7 +142,47 @@ public class UserRestful
 		 return theUser;
 	 }
 	 
-
+	 @POST
+     @Path("/updateUser")
+	 @Produces("text/html")
+     public String updateUser(User user){
+		 System.out.println("updateUser");
+		 System.out.println(user.getUsername());
+		 System.out.println(user.getEmail());
+		 user.setUsername(user.getUsername());
+		 user.setPhone(user.getPhone());
+		 return userService.updateUser(user);
+	 }
+	 
+	 @POST
+     @Path("/changePassword")
+	 @Produces("text/html")
+     public String changePassword(User user, String newPassword){
+		 System.out.println("changePassword");
+		 System.out.println(user.getPassword());
+		 System.out.println(newPassword);
+		 User oldUser = userService.getUserByUid(user.getUid());
+		 if (oldUser.getPassword().equals(user.getPassword())){
+			 oldUser.setPassword(newPassword);
+			 userService.updateUser(oldUser);
+			 return "success";
+		 }
+		 return "failed";
+	 }
+	 
+	 @POST
+     @Path("/changePhone")
+	 @Produces("text/html")
+     public String changePhone(int uid, String phone){
+		 System.out.println("changePhone");
+		 System.out.println(uid);
+		 System.out.println(phone);
+		 User user = userService.getUserByUid(uid);
+		 user.setPhone(phone);
+		 userService.updateUser(user);
+		 return "success";
+	 }
+	 
 	 
 	 @POST
      @Path("/getUserByUsername/{username}")
@@ -167,6 +208,16 @@ public class UserRestful
 		 response.setContentType("application/octet-stream");
 		 response.addHeader("Content-Disposition", "attachment; filename=\"acc.jpg\"");
 		 return userpicService.getPicById(uid);
+	 }
+	 
+	 @POST
+	 @Path("/saveUserPicture/{uid}")
+	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	 public void saveUserPicture(byte[] userpic, @PathParam("uid") int uid){
+		 //int uid = 1;
+		 System.out.println("saveUserPicture");
+		 System.out.println(userpic);
+		 userpicService.usersave(userpic, uid);
 	 }
 	 
 }

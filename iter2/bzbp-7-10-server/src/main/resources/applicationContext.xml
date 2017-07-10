@@ -75,6 +75,7 @@
 	<bean id="shareItemService" class="service.impl.ShareItemServiceImpl">
 		<!-- DAO -->
 		<property name="shareItemDao" ref="shareItemDao"></property>
+		<property name="contacterDao" ref="contacterDao"></property>
 	</bean>
 
 	<!-- HibernateTransactionManager -->

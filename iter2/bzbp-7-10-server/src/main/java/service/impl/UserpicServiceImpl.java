@@ -27,5 +27,11 @@ public class UserpicServiceImpl implements UserpicService {
 		Userpic userpic = userpicDao.getUserpicById(uid);
 		return userpic.getPic();
 	}
+	
+	@Override
+	public void usersave(byte[] userpic, int uid) {
+		Userpic pic = new Userpic(uid, userpic);
+		userpicDao.save(pic);
+	}
 
 }

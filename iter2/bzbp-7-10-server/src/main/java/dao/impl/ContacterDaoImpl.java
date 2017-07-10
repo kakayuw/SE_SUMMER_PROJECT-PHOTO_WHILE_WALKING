@@ -6,6 +6,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import dao.ContacterDao;
 import model.Contacter;
+import model.ShareItem;
 
 public class ContacterDaoImpl extends HibernateDaoSupport implements ContacterDao {
 
@@ -36,4 +37,13 @@ public class ContacterDaoImpl extends HibernateDaoSupport implements ContacterDa
 		 }
 		 else return 0;
 	}
+	
+	public Contacter getContacterByIds(int uid1, int uid2){  
+		@SuppressWarnings("unchecked")
+		List<Contacter> contacters = (List<Contacter>) getHibernateTemplate().find(
+				"from Contacter as c where c.uid1=? and c.uid2=?", uid1, uid2);
+		Contacter contacter = contacters.size() > 0 ? contacters.get(0) : null;
+		return contacter;
+	}
+
 }
