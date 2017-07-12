@@ -3,10 +3,12 @@ package Utils;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.String;
 /**
  * Created by yuhan on 2017/7/11.
@@ -41,28 +43,31 @@ public class FileUtil {
     public String fileToJson(String pathname) {
         String path = Environment.getExternalStorageDirectory().toString() + "/"
                 + "bzbp" + "/" + "data" + "/"  + "trace" + "/" + pathname;
-        File file = new File(path);
-        if (!file.exists()) {
-            Log.d(TAG,"FILE NOT EXIST");
-            return null;
-        }
-        String jsonString = "";
+
+        BufferedReader reader = null;
+        String laststr = "";
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            int read;
-            byte b[]=new byte[1024];
-            //读取文件，存入字节数组b，返回读取到的字符数，存入read,默认每次将b数组装满
-            read=fileInputStream.read(b);
-            while(read != -1) {
-                read = fileInputStream.read(b);
-                jsonString += new String(b);
+            FileInputStream fileInputStream = new FileInputStream(path);
+            InputStreamReader inputStreamReader = new InputStreamReader(
+                    fileInputStream, "utf-8");
+            reader = new BufferedReader(inputStreamReader);
+            String tempString = null;
+            while ((tempString = reader.readLine()) != null) {
+                laststr += tempString;
             }
-            fileInputStream.close();
-            Log.d(TAG, "JSON STORED LOCAL SUCCESS");
-        } catch (Exception e) {
+            reader.close();
+        } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return jsonString;
+        return laststr;
     }
 
     public String createFolder(String foldername) {

@@ -1,12 +1,17 @@
 package com.sourcey.materiallogindemo;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +25,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.GroundOverlay;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
@@ -31,6 +37,7 @@ import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 
+import com.baidu.mapapi.model.inner.GeoPoint;
 import com.baidu.trace.model.PushMessage;
 import com.google.gson.Gson;
 
@@ -41,6 +48,8 @@ import butterknife.ButterKnife;
 /* Baidu Trace classes */
 import com.baidu.trace.LBSTraceClient;
 import com.google.gson.reflect.TypeToken;
+import com.linroid.filtermenu.library.FilterMenu;
+import com.linroid.filtermenu.library.FilterMenuLayout;
 
 
 import java.text.DateFormat;
@@ -77,6 +86,7 @@ public class TraceActivity extends AppCompatActivity {
     @Bind(R.id.btn_endTrace) TextView _endTrace;
     @Bind(R.id.btn_queryTrace) TextView _saveTrace;
     @Bind(R.id.btn_loadTrace) TextView _loadTrace;
+    @Bind(R.id.btn_bindMarker) TextView _bindMarker;
 
     private FileUtil fu = new FileUtil();
     @Override
@@ -102,6 +112,7 @@ public class TraceActivity extends AppCompatActivity {
         //注册监听函数
         initLocation();
         initRoadData();
+        initBottomBar();
         mLocationClient.start();
 
         mHandler = new Handler(Looper.getMainLooper());
@@ -151,21 +162,101 @@ public class TraceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadTrace();
+                turnToLocation(polylines.get(0));
+            }
+        });
+
+        _bindMarker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // bindMarker();
             }
         });
     }
+
+    private void initBottomBar() {
+        /* bottom bar init setting */
+        FilterMenuLayout layout1 = (FilterMenuLayout) findViewById(R.id.filter_menu);
+        attachMenu1(layout1);
+        Log.e(TAG,"BUILDSUCCESS");
+    }
+
+    private FilterMenu attachMenu1(FilterMenuLayout layout){
+        FilterMenu returnType =
+                new  FilterMenu.Builder(this)
+                .addItem(R.drawable.huaji)
+                .addItem(R.drawable.huaji)
+                .addItem(R.drawable.huaji)
+                .attach(layout)
+                .withListener(listener)
+                .build();
+        Log.e(TAG,"AFTER BUILD +++++++++++++++++++++++++");
+        return returnType;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Toast.makeText(TraceActivity.this, "Touched id " +id , Toast.LENGTH_SHORT).show();
+        //noinspection SimplifiableIfStatement
+/*        if (id == R.id.action_github) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://github.com/linroid/FilterMenu"));
+            startActivity(Intent.createChooser(intent, null));
+            return true;
+        }*/
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    FilterMenu.OnMenuChangeListener listener = new FilterMenu.OnMenuChangeListener() {
+
+        @Override
+        public void onMenuItemClick(View view, int position) {
+            Toast.makeText(TraceActivity.this, "Touched position " + position, Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onMenuCollapse() {
+            Log.e(TAG,"COLLAPSE1!!!!!!!!!!!!!");
+        }
+
+        @Override
+        public void onMenuExpand() {
+            Toast.makeText(TraceActivity.this, "Touched position " , Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+    private void initOverlay() {
+
+    }
+
+
+
     private void loadTrace() {
         polylines = null;           //empty the polylines
         String jsonString = fu.fileToJson("2017-07-11/16:23:43");
-        jsonString.replace("\\", "");
-        jsonString = jsonString.substring(1, jsonString.length()-1);
+        Log.e(TAG,jsonString);
         Gson gson = new Gson();
-        polylines = gson.fromJson(jsonString ,new TypeToken<ArrayList<LatLng>>() {}.getType());
+        List<LatLng> loadPoly = gson.fromJson(jsonString ,new TypeToken<List<LatLng>>() {}.getType());
+        polylines = loadPoly;
         polylineOptions = new PolylineOptions().points(polylines).width(4).color(Color.DKGRAY);
         mVirtureRoad = (Polyline) mBaiduMap.addOverlay(polylineOptions);
     }
 
     private void saveTrace() {
+        if (polylines.size() < 3) return;
         String path = null;
         String fordername = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String forderpath = fu.createFolder(fordername);
@@ -179,6 +270,14 @@ public class TraceActivity extends AppCompatActivity {
         if(myloc == null || myloc.getLongitude() == 0)  return;
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(new LatLng(myloc.getLatitude(), myloc.getLongitude()))
+                .zoom(18)
+                .build();
+        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(mMapStatus));
+    }
+
+    private void turnToLocation(LatLng llA) {
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(llA)
                 .zoom(18)
                 .build();
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(mMapStatus));

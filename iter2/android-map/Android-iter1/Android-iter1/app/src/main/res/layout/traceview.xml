@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -40,11 +41,48 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="save" />
+
         <Button
             android:id="@+id/btn_loadTrace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="load" />
+
+        <Button
+            android:id="@+id/btn_bindMarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="bind" />
+        <com.linroid.filtermenu.library.FilterMenuLayout
+            android:id="@+id/filter_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            custom:fm_expandedRadius="96dp"
+            custom:fm_collapsedRadius="24dp"
+            custom:fm_centerBottom="50dp"
+            custom:fm_centerRight="50dp"
+            custom:fm_primaryColor="#faf"
+            custom:fm_primaryDarkColor="#ff2b">
+        </com.linroid.filtermenu.library.FilterMenuLayout>
+
+
+<!--        &lt;!&ndash;circle radius size when menu expanded&ndash;&gt;
+        custom:fm_expandedRadius
+        &lt;!&ndash;circle radius size when menu collapsed&ndash;&gt;
+        custom:fm_collapsedRadius
+        &lt;!&ndash;set the position of circle, the menu will auto align.
+            You should only set two directions at most.&ndash;&gt;
+        custom:fm_center[Left|Top|Right|Bottom]
+        &lt;!&ndash; If true, centers the circle horizontally.&ndash;&gt;
+        custom:fm_centerHorizontal
+        &lt;!&ndash; If true, centers the circle vertically.&ndash;&gt;
+        custom:fm_centerVertical
+        &lt;!&ndash;primary color&ndash;&gt;
+        custom:fm_primaryColor
+        &lt;!&ndash;color of inner circle when menu expanded&ndash;&gt;
+        custom:fm_primaryDarkColor-->
     </LinearLayout>
 </RelativeLayout>
