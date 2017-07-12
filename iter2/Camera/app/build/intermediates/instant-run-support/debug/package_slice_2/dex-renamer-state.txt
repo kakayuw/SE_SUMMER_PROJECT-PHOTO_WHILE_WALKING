@@ -1,0 +1,4 @@
+#Mon Jul 10 14:29:30 CST 2017
+base.0=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_2
+renamed.0=classes.dex
+file.0=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_2\\classes.dex

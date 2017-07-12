@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\dell\Desktop\Camera\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="55da8da76c8bd612ea6988291aa52192502c3ae0">
+        <dex dex="C:\Users\dell\Desktop\Camera\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_62871da58701374ac09e6142792c153a007e9c24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\dell\Desktop\Camera\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="C:\Users\dell\Desktop\Camera\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_79e5d3902ba490544a6764ab208fa289bacfb236\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\dell\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="C:\Users\dell\Desktop\Camera\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_4490a32e8d2dccbc029bd53436f55123e11e11a3.jar" />
+    </item>
+
+</items>

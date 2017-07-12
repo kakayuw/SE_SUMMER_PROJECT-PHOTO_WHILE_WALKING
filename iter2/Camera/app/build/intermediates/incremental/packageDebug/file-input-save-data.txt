@@ -1,0 +1,33 @@
+#Internal package file, do not edit.
+#Tue Jul 11 15:15:47 CST 2017
+2.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+5.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_syscamera.xml
+5.set=ANDROID_RESOURCE
+3.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+6.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_62871da58701374ac09e6142792c153a007e9c24\\classes.dex
+2.set=ANDROID_RESOURCE
+4.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+7.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_sysvideocamera.xml
+7.set=ANDROID_RESOURCE
+count=10
+0.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\menu\\main.xml
+5.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+8.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+4.set=ANDROID_RESOURCE
+6.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_62871da58701374ac09e6142792c153a007e9c24
+1.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_main.xml
+9.set=DEX
+9.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_79e5d3902ba490544a6764ab208fa289bacfb236\\classes.dex
+1.set=ANDROID_RESOURCE
+7.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+2.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\menu-v11\\main.xml
+6.set=DEX
+0.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+8.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+3.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+3.set=ANDROID_RESOURCE
+1.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_
+9.base=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_79e5d3902ba490544a6764ab208fa289bacfb236
+4.file=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\ic_launcher.png
+8.set=ANDROID_RESOURCE
+0.set=ANDROID_RESOURCE

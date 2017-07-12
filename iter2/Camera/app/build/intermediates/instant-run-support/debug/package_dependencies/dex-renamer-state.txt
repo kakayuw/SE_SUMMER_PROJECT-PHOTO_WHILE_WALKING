@@ -1,0 +1,4 @@
+#Mon Jul 10 14:29:28 CST 2017
+base.0=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-18.0.0_4490a32e8d2dccbc029bd53436f55123e11e11a3
+renamed.0=classes.dex
+file.0=C\:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-18.0.0_4490a32e8d2dccbc029bd53436f55123e11e11a3\\classes.dex

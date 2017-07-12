@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_sysvideocamera.xml",
+        "source": "C:\\Users\\dell\\Desktop\\Camera\\app\\src\\main\\res\\layout\\activity_sysvideocamera.xml"
+    },
+    {
+        "merged": "C:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_syscamera.xml",
+        "source": "C:\\Users\\dell\\Desktop\\Camera\\app\\src\\main\\res\\layout\\activity_syscamera.xml"
+    },
+    {
+        "merged": "C:\\Users\\dell\\Desktop\\Camera\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "C:\\Users\\dell\\Desktop\\Camera\\app\\src\\main\\res\\layout\\activity_main.xml"
+    }
+]
