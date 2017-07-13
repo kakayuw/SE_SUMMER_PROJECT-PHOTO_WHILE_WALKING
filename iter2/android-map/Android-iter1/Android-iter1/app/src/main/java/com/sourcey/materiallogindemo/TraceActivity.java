@@ -41,6 +41,7 @@ import com.baidu.mapapi.model.inner.GeoPoint;
 import com.baidu.trace.model.PushMessage;
 import com.google.gson.Gson;
 
+import Model.TraceInfo;
 import Utils.FileUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,10 +58,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.lang.Integer;
 
 public class TraceActivity extends AppCompatActivity {
     private static final String TAG = "TraceActivity";
-    private LBSTraceClient mTraceClient;
+    private TraceInfo ti = null;
 
     private TextureMapView mMapView;
     private BaiduMap mBaiduMap;
@@ -105,6 +107,7 @@ public class TraceActivity extends AppCompatActivity {
 
         _endTrace.setEnabled(false);
         _saveTrace.setEnabled(false);
+        _saveTrace.setEnabled(false);
 
         mLocationClient = new LocationClient(getApplicationContext());
         //声明LocationClient类
@@ -120,42 +123,21 @@ public class TraceActivity extends AppCompatActivity {
         _beginTrace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _beginTrace.setEnabled(false);
-                _endTrace.setEnabled(true);
-                _saveTrace.setEnabled(false);
-                backToMyLocation();
-               /* mTraceClient.startTrace(mTrace, mTraceListener);
-                mTraceClient.startGather(mTraceListener);*/
-                triggerTrace = true;
-
+                beginTrace();
             }
         });
 
         _endTrace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _beginTrace.setEnabled(true);
-                _endTrace.setEnabled(false);
-                _saveTrace.setEnabled(true);
-                backToMyLocation();
-              /*  mTraceClient.stopGather(mTraceListener);
-                mTraceClient.stopTrace(mTrace, mTraceListener);*/
-                triggerTrace = false;
+                endTrace();
             }
         });
 
         _saveTrace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _saveTrace.setEnabled(false);
                 saveTrace();
-                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                _saveTrace.setEnabled(true);
-                            }
-                        }, 3000);
-
             }
         });
         _loadTrace.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +156,68 @@ public class TraceActivity extends AppCompatActivity {
         });
     }
 
+    private void beginTrace() {
+        _beginTrace.setEnabled(false);
+        _endTrace.setEnabled(true);
+        _saveTrace.setEnabled(false);
+        backToMyLocation();
+        triggerTrace = true;
+        /* Log trace infomation */
+        ti = new TraceInfo();
+        ti.setTraceDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        ti.setStartTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+    }
+    private void endTrace() {
+        _beginTrace.setEnabled(true);
+        _endTrace.setEnabled(false);
+        _saveTrace.setEnabled(true);
+        backToMyLocation();
+        triggerTrace = false;
+        ti.setEndTime(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+    }
+    private void loadTrace() {
+        polylines = null;           //empty the polylines
+        String polyStr = fu.fileToJson("2017-07-13/14:12:01");
+        Log.e(TAG,polyStr);
+        Gson gson = new Gson();
+        List<LatLng> loadPoly = gson.fromJson(polyStr ,new TypeToken<List<LatLng>>() {}.getType());
+        polylines = loadPoly;
+        polylineOptions = new PolylineOptions().points(polylines).width(4).color(Color.DKGRAY);
+        mVirtureRoad = (Polyline) mBaiduMap.addOverlay(polylineOptions);
+        String infoStr = fu.fileToJson("2017-07-13/info_14:12:01");
+        ti = gson.fromJson(infoStr, TraceInfo.class);
+        Log.e("ti.getTraceId:::" , ti.getTraceId());
+        Log.e("ti.getFileName():::" , ti.getFileName());
+        Log.e("ti.getInfoFileName:::" , ti.getInfoFileName());
+        Log.e("ti.getTraceDate:::" , ti.getTraceDate());
+        Log.e("ti.getTraceName:::" , ti.getTraceName());
+        Log.e("ti.getStartTime:::" , ti.getStartTime());
+        Log.e("ti.getEndTime:::" , ti.getEndTime());
+    }
+    private void saveTrace() {
+        _saveTrace.setEnabled(false);
+
+        String userid = "1";
+        ti.setTraceName(ti.getStartTime());
+        ti.setTraceId(userid + ti.getStartTime().substring(0,2) + ti.getEndTime().substring(0,2));
+        ti.setFileName(ti.getStartTime());
+        ti.setInfoFileName("info_" + ti.getFileName());
+        LogTraceFile();
+        Log.e(TAG,"savetrace]]]]]]]]]]]]]]]]]]]]]");
+    }
+    private void LogTraceFile() {
+        if (polylines.size() < 3) {
+            Log.e("LIST TOO SHORT !!!!!!!", "::::::::::::GG:::::::::");
+            return;
+        }
+        String fordername = ti.getTraceDate();
+        String forderpath = fu.createFolder(fordername);
+        Gson gson = new Gson();
+        String polyStr = gson.toJson(polylines);
+        fu.jsonToFile( forderpath  + ti.getFileName() , polyStr);
+        String infoStr = gson.toJson(ti);
+        fu.jsonToFile(forderpath  + ti.getInfoFileName(), infoStr);
+    }
     private void initBottomBar() {
         /* bottom bar init setting */
         FilterMenuLayout layout1 = (FilterMenuLayout) findViewById(R.id.filter_menu);
@@ -244,33 +288,11 @@ public class TraceActivity extends AppCompatActivity {
 
 
 
-    private void loadTrace() {
-        polylines = null;           //empty the polylines
-        String jsonString = fu.fileToJson("2017-07-11/16:23:43");
-        Log.e(TAG,jsonString);
-        Gson gson = new Gson();
-        List<LatLng> loadPoly = gson.fromJson(jsonString ,new TypeToken<List<LatLng>>() {}.getType());
-        polylines = loadPoly;
-        polylineOptions = new PolylineOptions().points(polylines).width(4).color(Color.DKGRAY);
-        mVirtureRoad = (Polyline) mBaiduMap.addOverlay(polylineOptions);
-    }
-
-    private void saveTrace() {
-        if (polylines.size() < 3) return;
-        String path = null;
-        String fordername = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String forderpath = fu.createFolder(fordername);
-        path = forderpath  + new SimpleDateFormat("HH:mm:ss").format(new Date());
-        Gson gson = new Gson();
-        String jsonstr = gson.toJson(polylines);
-        fu.jsonToFile(path, jsonstr);
-    }
-
     private void backToMyLocation() {
         if(myloc == null || myloc.getLongitude() == 0)  return;
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(new LatLng(myloc.getLatitude(), myloc.getLongitude()))
-                .zoom(18)
+                .zoom(56)
                 .build();
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(mMapStatus));
     }
@@ -402,10 +424,9 @@ public class TraceActivity extends AppCompatActivity {
                     polylines.get(size-1).longitude == llA.longitude)
                     polylines.remove(size - 1);
                 polylines.add(llA);
-                do{ size = polylines.size();}
+/*                do{ size = polylines.size();}
                 while (size > 2 &&
-                        clearNoise(polylines.get(size-3), polylines.get(size-2), polylines.get(size-1), size-2));
-                    ;
+                        clearNoise(polylines.get(size-3), polylines.get(size-2), polylines.get(size-1), size-2));*/
 
             }
                 if (polylines.size() >= 2) {
@@ -489,6 +510,7 @@ public class TraceActivity extends AppCompatActivity {
     }
 
     private boolean clearNoise(LatLng p1, LatLng p2, LatLng p3, int midI) {
+
         boolean needNext = false;
         double a =   Math.sqrt(  (p3.latitude - p2.latitude) * (p3.latitude - p2.latitude)
                     +  (p3.longitude - p2.longitude) * (p3.longitude - p2.longitude) );
