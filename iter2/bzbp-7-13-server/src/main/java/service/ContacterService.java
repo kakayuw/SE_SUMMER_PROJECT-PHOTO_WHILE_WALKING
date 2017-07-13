@@ -13,6 +13,8 @@ public interface ContacterService {
 	public void delete(int uid1, int uid2);
 
 	public List<Contacter> getContacterById(int uid);
+	
+	public Contacter getContacterByIds(int uid1, int uid2);
 
 	public void update(Contacter contacter);
 }

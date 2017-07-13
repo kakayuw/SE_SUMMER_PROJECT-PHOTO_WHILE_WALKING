@@ -93,4 +93,15 @@ public class FriendRestful
 		 return "success";
 	 }
 	 
+	 @GET
+     @Path("/changeRemark/{uid1}/{uid2}")
+	 @Produces("text/html")
+     public String changeRemark(@PathParam("uid1") int uid1, @PathParam("uid2") int uid2){
+		 System.out.println("changeRemark");
+		 Contacter contacter = contacterService.getContacterByIds(uid1, uid2);
+		 contacter.setRemark("2333");
+		 contacterService.update(contacter);
+		 return "success";
+	 }
+	 
 }

@@ -46,6 +46,10 @@ public class ContacterServiceImpl implements ContacterService {
 	public List<Contacter> getContacterById(int uid) {
 		return contacterDao.getContacterById(uid);
 	}
+	
+	public Contacter getContacterByIds(int uid1, int uid2){
+		return contacterDao.getContacterByIds(uid1, uid2);
+	}
 
 	public void update(Contacter contacter) {
 		contacterDao.update(contacter);

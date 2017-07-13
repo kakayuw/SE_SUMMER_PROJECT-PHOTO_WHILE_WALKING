@@ -77,6 +77,10 @@
 		<property name="shareItemDao" ref="shareItemDao"></property>
 		<property name="contacterDao" ref="contacterDao"></property>
 	</bean>
+	<bean id="routeService" class="service.impl.RouteServiceImpl">
+		<!-- DAO -->
+		<property name="shareRouteDao" ref="shareRouteDao"></property>
+	</bean>
 
 	<!-- HibernateTransactionManager -->
 	<bean id="transactionManager"
@@ -91,7 +95,7 @@
 	</tx:advice>
 	<aop:config>
 		<!-- userService Bean -->
-		<aop:pointcut id="beanPointcut" expression="bean(userService), bean(adminService), bean(contacterService), bean(shareItemService)"/>
+		<aop:pointcut id="beanPointcut" expression="bean(userService), bean(adminService), bean(contacterService), bean(shareItemService), bean(routeService)"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="beanPointcut" />
 	</aop:config>
 
@@ -109,11 +113,19 @@
                    write-fsync="true"/>
 	</mongo:mongo>
 
-	<mongo:db-factory dbname="photoWalking" mongo-ref="mongo" />
+	<mongo:db-factory id="mongoDbFactory" dbname="photoWalking" mongo-ref="mongo" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
+	<bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+  	  	<constructor-arg ref="mongoDbFactory" />
+ 		<constructor-arg ref="mongoConverter" />	  	
+	</bean>
+	 	  
+	<mongo:mapping-converter id="mongoConverter" base-package="org.baeldung.converter">
+	    <mongo:custom-converters base-package="org.baeldung.converter"/>
+	</mongo:mapping-converter>
 	
 	<bean id="profileDao" class="dao.impl.ProfileDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate"></property>
@@ -121,9 +133,13 @@
 	<bean id="userpicDao" class="dao.impl.UserpicDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate"></property>
 	</bean>
+	<bean id="shareRouteDao" class="dao.impl.ShareRouteDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate"></property>
+	</bean>
 	<bean id="userpicService" class="service.impl.UserpicServiceImpl">
 		<property name="userpicDao" ref="userpicDao"></property>
 	</bean>
+	
 	
 
 </beans>

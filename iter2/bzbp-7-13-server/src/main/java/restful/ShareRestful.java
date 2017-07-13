@@ -28,6 +28,7 @@ import model.Friend;
 import model.ShareItem;
 import model.User;
 import service.ContacterService;
+import service.RouteService;
 import service.ShareItemService;
 import service.UserpicService;
 import util.SpringContextUtil;
@@ -36,6 +37,7 @@ import util.SpringContextUtil;
 
 public class ShareRestful {
 	private ShareItemService shareItemService = (ShareItemService) SpringContextUtil.getBean("shareItemService");
+	private RouteService routeService = (RouteService) SpringContextUtil.getBean("routeService");
 	 
 	@GET
     @Path("/getAll/")
@@ -77,4 +79,14 @@ public class ShareRestful {
 		 shareItemService.addShareItem(shareItem);
 		 return "success";
      }
+	 
+	 @GET
+	 @Path("/addRoute/{sid}/{routedetail}")
+	 @Produces("text/html")
+	 public String addRoute(@PathParam("sid") String sid, @PathParam("routedetail") String routedetail){
+		 System.out.println("addRoute");
+		 routeService.addShareRoute(sid, routedetail);
+		 return "success";
+	 }
+	 
 }
