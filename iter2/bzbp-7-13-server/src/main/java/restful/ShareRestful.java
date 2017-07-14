@@ -27,8 +27,10 @@ import model.Contacter;
 import model.Friend;
 import model.ShareItem;
 import model.User;
+import model.Routepic;		
 import service.ContacterService;
 import service.RouteService;
+import service.RoutepicService;
 import service.ShareItemService;
 import service.UserpicService;
 import util.SpringContextUtil;
@@ -38,6 +40,7 @@ import util.SpringContextUtil;
 public class ShareRestful {
 	private ShareItemService shareItemService = (ShareItemService) SpringContextUtil.getBean("shareItemService");
 	private RouteService routeService = (RouteService) SpringContextUtil.getBean("routeService");
+	private RoutepicService routepicService = (RoutepicService) SpringContextUtil.getBean("routepicService");
 	 
 	@GET
     @Path("/getAll/")
@@ -88,5 +91,34 @@ public class ShareRestful {
 		 routeService.addShareRoute(sid, routedetail);
 		 return "success";
 	 }
+	 
+	 @GET
+	 @Path("/getRoute/{sid}")
+	 @Produces("text/html")
+	 public String getRoute(@PathParam("sid") String sid){
+		 System.out.println("getRoute");
+		 return routeService.getShareRoute(sid);
+	 }
+	 
+	 @GET
+	 @Path("/getPics/{sid}")
+	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	 @Produces(MediaType.APPLICATION_OCTET_STREAM)
+	 public List<byte[]> getPics(@PathParam("sid") String sid, byte[] pics){
+		 System.out.println("getPics");
+		 return routepicService.getPicsById(sid);
+	 }
+	 
+	 @GET
+	 @Path("/addPics/{sid}")
+	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	 @Produces("text/html")
+	 public String addPics(@PathParam("sid") String sid, byte[] pics){
+		 System.out.println("addPics");
+		 routepicService.save(sid, pics);
+		 return "success";
+	 }
+	 
+	 
 	 
 }

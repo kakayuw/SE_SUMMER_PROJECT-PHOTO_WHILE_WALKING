@@ -1,10 +1,13 @@
 package restful;
 
+import java.io.File;
+import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -19,6 +22,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.fileupload.FileItemHeaders;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -283,12 +287,17 @@ public class UserRestful
 	 
 	 @POST
 	 @Path("/saveUserPicture/{uid}")
-	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	 public void saveUserPicture(byte[] userpic, @PathParam("uid") int uid){
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 public void saveUserPicture(JSONObject jsonpic, @PathParam("uid") int uid){
 		 //int uid = 1;
 		 System.out.println("saveUserPicture");
+		 System.out.println(uid);
+
+		 byte[] userpic = (byte[])jsonpic.get("pic");
 		 System.out.println(userpic);
+
 		 userpicService.usersave(userpic, uid);
 	 }
 	 
+
 }

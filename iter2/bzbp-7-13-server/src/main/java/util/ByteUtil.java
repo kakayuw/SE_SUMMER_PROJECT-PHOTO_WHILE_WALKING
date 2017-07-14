@@ -1,7 +1,9 @@
 package util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.StringBufferInputStream;
 
 import javax.imageio.stream.FileImageInputStream;
 
@@ -26,12 +28,21 @@ public class ByteUtil {
 	}
 
 	public static byte[] StringToByte(String str) {
-		byte[] buffer = null;
+		byte[] ret = null;
 		try {
-			buffer = str.getBytes();
+			StringBufferInputStream inputStream = new StringBufferInputStream(str);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int n;
+			while ((n = inputStream.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, n);
+			}
+			ret = outputStream.toByteArray();
+			inputStream.close();
+			outputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return buffer;
+		return ret;
 	}
 }

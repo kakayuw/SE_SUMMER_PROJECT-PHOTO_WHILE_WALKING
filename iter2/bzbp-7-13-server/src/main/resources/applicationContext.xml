@@ -81,6 +81,10 @@
 		<!-- DAO -->
 		<property name="shareRouteDao" ref="shareRouteDao"></property>
 	</bean>
+	<bean id="routepicService" class="service.impl.RoutepicServiceImpl">
+		<!-- DAO -->
+		<property name="routepicDao" ref="routepicDao"></property>
+	</bean>
 
 	<!-- HibernateTransactionManager -->
 	<bean id="transactionManager"
@@ -95,7 +99,7 @@
 	</tx:advice>
 	<aop:config>
 		<!-- userService Bean -->
-		<aop:pointcut id="beanPointcut" expression="bean(userService), bean(adminService), bean(contacterService), bean(shareItemService), bean(routeService)"/>
+		<aop:pointcut id="beanPointcut" expression="bean(userService), bean(adminService), bean(contacterService), bean(shareItemService), bean(routeService), bean(routepicService)"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="beanPointcut" />
 	</aop:config>
 
@@ -131,6 +135,9 @@
 		<property name="mongoTemplate" ref="mongoTemplate"></property>
 	</bean>
 	<bean id="userpicDao" class="dao.impl.UserpicDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate"></property>
+	</bean>
+	<bean id="routepicDao" class="dao.impl.RoutepicDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate"></property>
 	</bean>
 	<bean id="shareRouteDao" class="dao.impl.ShareRouteDaoImpl">
