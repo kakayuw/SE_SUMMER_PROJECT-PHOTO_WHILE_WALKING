@@ -1,5 +1,6 @@
 package restful;
 
+import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,10 +84,10 @@ public class ShareRestful {
 		 return "success";
      }
 	 
-	 @GET
-	 @Path("/addRoute/{sid}/{routedetail}")
+	 @POST
+	 @Path("/addRoute/{sid}")
 	 @Produces("text/html")
-	 public String addRoute(@PathParam("sid") String sid, @PathParam("routedetail") String routedetail){
+	 public String addRoute(@PathParam("sid") String sid, String routedetail){
 		 System.out.println("addRoute");
 		 routeService.addShareRoute(sid, routedetail);
 		 return "success";
@@ -119,6 +120,25 @@ public class ShareRestful {
 		 return "success";
 	 }
 	 
+	 @POST
+	 @Path("/addPicFile/{sid}")
+	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	 @Produces("text/html")
+	 public String addPicFile(@PathParam("sid") String sid, File pics){
+		 System.out.println("addPicFile");
+		 System.out.println(pics);
+		 routeService.addShareRoutePic(sid, pics);
+		// routepicService.save(sid, pics);
+		 return "success";
+	 }
 	 
+	 @GET
+	 @Path("/getPicFile/{sid}")
+	 @Produces(MediaType.APPLICATION_OCTET_STREAM)
+	 public File getPicFile(@PathParam("sid") String sid){
+		 System.out.println("getPicFile");
+		 System.out.println(sid);
+		 return routeService.getShareRoutePic(sid);	 
+	}
 	 
 }
