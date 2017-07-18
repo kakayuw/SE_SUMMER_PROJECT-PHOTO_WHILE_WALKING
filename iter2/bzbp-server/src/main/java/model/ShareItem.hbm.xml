@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-3 9:29:47 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+ <class name="model.ShareItem" table="shareitem">
+  <id name="sid" type="int">
+   <column name="sid"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="uid" type="int">
+   <column name="uid"/>
+  </property>
+  <property generated="never" lazy="false" name="username" type="java.lang.String">
+   <column name="username"/>
+  </property>
+  <property generated="never" lazy="false" name="title" type="java.lang.String">
+   <column name="title"/>
+  </property>
+  <property generated="never" lazy="false" name="picnum" type="int">
+   <column name="picnum"/>
+  </property>
+  <property name="starttime" type="timestamp">
+   <column name="starttime"/>
+  </property>
+  <property name="endtime" type="timestamp">
+   <column name="endtime"/>
+  </property>
+  <property name="upvote" type="int">
+   <column name="upvote"/>
+  </property>
+  <property name="comment" type="int">
+   <column name="comment"/>
+  </property>
+  <property name="poem" type="java.lang.String">
+   <column name="poem"/>
+  </property>
+ </class>
+</hibernate-mapping>
