@@ -3,6 +3,8 @@ package action;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 import model.ShareItem;
 import net.sf.json.JSONArray;
 import service.ShareItemService;
@@ -11,7 +13,15 @@ public class BestshareAction extends BaseAction{
 
 	private static final long serialVersionUID = 1L;
 	private ShareItemService shareItemService;
-	
+	private String sid;
+
+	public String getSid() {
+		return sid;
+	}
+
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
 
 	public ShareItemService getShareItemService() {
 		return shareItemService;
@@ -34,7 +44,13 @@ public class BestshareAction extends BaseAction{
 	}
 	
 	public String getBest(){    
-
+		ShareItem shareItem = shareItemService.getBest();
+		request().setAttribute("bestShareItem", shareItem);
+		return "success";
+	}
+	
+	public String changeBest(){  
+		shareItemService.changeBest(sid);
 		return "success";
 	}
 

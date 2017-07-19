@@ -19,4 +19,8 @@ public interface ShareItemDao {
 	public List<ShareItem> getShareItemByUid(int uid);
 	
 	public List<ShareItem> getTopNumber(int number);
+	
+	public ShareItem getBest();
+	
+	public void changeBest(String sid);
 }

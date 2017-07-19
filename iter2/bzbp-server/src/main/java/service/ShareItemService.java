@@ -20,5 +20,9 @@ public interface ShareItemService {
 	public int addShareItem(ShareItem shareItem);
 	
 	public List<ShareItem> getTopNumber(int number);
+	
+	public ShareItem getBest();
+	
+	public void changeBest(String sid);
 
 }

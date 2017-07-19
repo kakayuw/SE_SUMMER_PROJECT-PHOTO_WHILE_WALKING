@@ -4,7 +4,7 @@
 <!-- Generated 2017-7-3 9:29:47 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
  <class name="model.ShareItem" table="shareitem">
-  <id name="sid" type="int">
+  <id name="sid" type="java.lang.String">
    <column name="sid"/>
    <generator class="identity"/>
   </id>
@@ -20,10 +20,10 @@
   <property generated="never" lazy="false" name="picnum" type="int">
    <column name="picnum"/>
   </property>
-  <property name="starttime" type="timestamp">
+  <property name="starttime" type="java.util.Date">
    <column name="starttime"/>
   </property>
-  <property name="endtime" type="timestamp">
+  <property name="endtime" type="java.util.Date">
    <column name="endtime"/>
   </property>
   <property name="upvote" type="int">
@@ -34,6 +34,9 @@
   </property>
   <property name="poem" type="java.lang.String">
    <column name="poem"/>
+  </property>
+  <property name="type" type="int">
+   <column name="type"/>
   </property>
  </class>
 </hibernate-mapping>

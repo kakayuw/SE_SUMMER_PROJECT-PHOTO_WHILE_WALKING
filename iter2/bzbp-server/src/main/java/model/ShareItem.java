@@ -5,22 +5,23 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class ShareItem {
-	private int sid;
+	private String sid;
     private int uid;
     private String username;
     private String title;
     private int picnum;
-    private java.sql.Timestamp starttime;
-    private java.sql.Timestamp endtime;
+    private java.util.Date starttime;
+    private java.util.Date endtime;
     private int upvote;
     private int comment;
     private String poem;
+    private int type;
     
     public ShareItem(){
     	
     }
     
-    public ShareItem(int sid, int uid, String username, String title, int picnum, java.sql.Timestamp starttime, java.sql.Timestamp endtime, int upvote, int comment, String poem){ 
+    public ShareItem(String sid, int uid, String username, String title, int picnum, java.util.Date starttime, java.util.Date endtime, int upvote, int comment, String poem){ 
     	this.sid = sid;
     	this.uid = uid;
     	this.username = username;
@@ -65,11 +66,11 @@ public class ShareItem {
         this.picnum = picnum;
     }
 
-	public int getSid() {
+	public String getSid() {
 		return sid;
 	}
 
-	public void setSid(int sid) {
+	public void setSid(String sid) {
 		this.sid = sid;
 	}
 
@@ -90,11 +91,11 @@ public class ShareItem {
 	}
 
 
-	public java.sql.Timestamp getStarttime() {
+	public java.util.Date getStarttime() {
 		return starttime;
 	}
 
-	public void setStarttime(java.sql.Timestamp starttime) {
+	public void setStarttime(java.util.Date starttime) {
 		this.starttime = starttime;
 	}
 
@@ -106,11 +107,19 @@ public class ShareItem {
 		this.poem = poem;
 	}
 
-	public java.sql.Timestamp getEndtime() {
+	public java.util.Date getEndtime() {
 		return endtime;
 	}
 
-	public void setEndtime(java.sql.Timestamp endtime) {
+	public void setEndtime(java.util.Date endtime) {
 		this.endtime = endtime;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }
