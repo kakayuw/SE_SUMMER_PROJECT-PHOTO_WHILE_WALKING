@@ -64,4 +64,11 @@ public class ShareItemServiceImpl implements ShareItemService {
 		return shareItemDao.getTopNumber(number);
 	}
 	
+	public ShareItem getBest(){  
+		return shareItemDao.getBest();
+	}
+	
+	public void changeBest(String sid){  
+		shareItemDao.changeBest(sid);
+	}
 }
