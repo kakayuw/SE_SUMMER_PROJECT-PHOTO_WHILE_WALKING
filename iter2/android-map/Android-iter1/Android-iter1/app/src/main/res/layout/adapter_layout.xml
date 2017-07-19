@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="70dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:orientation="horizontal" >
+
+    <com.photowalking.viewUtils.CircleImageView
+        android:id="@+id/share_item_picture"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/share_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="开始时间"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/share_main_item_stime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="asdfasdfasdf"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="结束时间"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/share_main_item_tottime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="asdfasdfasdf"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.25"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="总路程"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/share_main_item_miles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="asdfasdfasdf"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="照片数"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:id="@+id/share_main_item_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="asdfasd"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
+
+</LinearLayout>

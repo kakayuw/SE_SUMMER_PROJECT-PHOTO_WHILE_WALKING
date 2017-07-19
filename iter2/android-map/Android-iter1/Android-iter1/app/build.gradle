@@ -12,7 +12,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
     defaultConfig {
-        applicationId "com.sourcey.materialloginexample"
+        applicationId "com.photowalking.main"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -42,4 +42,11 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.linroid.filtermenu:library:0.2.+@aar'
+    compile 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-vector-drawable:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile files('libs/universal-image-loader-1.9.5.jar')
+
+
 }

@@ -33,5 +33,8 @@
         <item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>
     </style>
+    <style name="AppWelcome" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/bg1</item>
+    </style>
 
 </resources>
