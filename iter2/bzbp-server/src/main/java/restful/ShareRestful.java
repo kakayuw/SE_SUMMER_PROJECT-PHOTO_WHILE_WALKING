@@ -1,43 +1,24 @@
 package restful;
 
 import java.io.File;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.sun.jersey.core.impl.provider.xml.ThreadLocalSingletonContextProvider;
-
-import model.Contacter;
-import model.Friend;
 import model.ShareItem;
-import model.User;
+import model.Saitem;
 import net.sf.json.JSONObject;
-import model.Routepic;		
-import service.ContacterService;
 import service.RouteService;
 import service.RoutepicService;
 import service.ShareItemService;
-import service.UserpicService;
 import util.SpringContextUtil;
 
 @Path("/share")
@@ -51,12 +32,12 @@ public class ShareRestful {
 	@GET
     @Path("/getAll/")
 	 @Produces(MediaType.APPLICATION_JSON)
-	 public List<saitem> getAll(){
+	 public List<Saitem> getAll(){
 		 System.out.println("getall");
 		 List<ShareItem> shareItems = shareItemService.getAll();
-		 List<saitem> sList = new ArrayList<>();
+		 List<Saitem> sList = new ArrayList<>();
 		 for(ShareItem si: shareItems){
-			 sList.add(new saitem(si));
+			 sList.add(new Saitem(si));
 		 }
 		 return sList;
 	}
@@ -64,12 +45,12 @@ public class ShareRestful {
 	@GET
     @Path("/friendGetAll/{uid}")
 	 @Produces(MediaType.APPLICATION_JSON)
-	 public List<saitem> friendGetAll(@PathParam("uid") int uid){
+	 public List<Saitem> friendGetAll(@PathParam("uid") int uid){
 		 System.out.println("friendGetAll");
 		 List<ShareItem> shareItems = shareItemService.getAllbyUid(uid);
-		 List<saitem> sList = new ArrayList<>();
+		 List<Saitem> sList = new ArrayList<>();
 		 for(ShareItem si: shareItems){
-			 sList.add(new saitem(si));
+			 sList.add(new Saitem(si));
 		 }
 		 return sList;
 		 
@@ -78,12 +59,12 @@ public class ShareRestful {
 	@GET
     @Path("/myGetAll/{uid}")
 	 @Produces(MediaType.APPLICATION_JSON)
-	 public List<saitem> myGetAll(@PathParam("uid") int uid){
+	 public List<Saitem> myGetAll(@PathParam("uid") int uid){
 		 System.out.println("myGetAll");
 		 List<ShareItem> shareItems = shareItemService.getMyAll(uid);
-		 List<saitem> sList = new ArrayList<>();
+		 List<Saitem> sList = new ArrayList<>();
 		 for(ShareItem si: shareItems){
-			 sList.add(new saitem(si));
+			 sList.add(new Saitem(si));
 		 }
 		 return sList;
 	 }
@@ -91,11 +72,13 @@ public class ShareRestful {
 	 @POST
      @Path("/addShare")
 	 @Produces("text/html")
-     public String addShare(ShareItem shareItem){
+     public String addShare(Saitem item){
 		 System.out.println("addShare");
-		 System.out.println(shareItem.getUid());
-		 System.out.println(shareItem.getTitle());
-		 System.out.println(shareItem.getUpvote());
+		 System.out.println(item.getUid());
+		 System.out.println(item.getStarttime());
+		 System.out.println(item.getEndtime());
+		 ShareItem shareItem = new ShareItem(item);
+		 
 		 shareItemService.addShareItem(shareItem);
 		 return "success";
      }
@@ -148,6 +131,24 @@ public class ShareRestful {
 		 return "success";
 	 }
 	 
+	 @GET
+	 @Path("/upvote/{sid}")
+	 @Produces("text/html")
+	 public String upvote(@PathParam("sid") String sid){
+		 System.out.println("upvote");
+		 shareItemService.upvote(sid);
+		 return "success";
+	 }
+	 
+	 @GET
+	 @Path("/cancelUpvote/{sid}")
+	 @Produces("text/html")
+	 public String cancelUpvote(@PathParam("sid") String sid){
+		 System.out.println("cancelUpvote");
+		 shareItemService.cancelUpvote(sid);
+		 return "success";
+	 }
+	 
 	 @POST
 	 @Path("/addPicFile/{sid}")
 	 @Consumes(MediaType.APPLICATION_OCTET_STREAM)
@@ -169,91 +170,7 @@ public class ShareRestful {
 		 return routeService.getShareRoutePic(sid);	 
 	}	 	 
 	 
-		private class saitem implements Serializable{
-		    private String sid;
-			private int uid;
-			private String username;
-		    private String title;
-		    private int picnum;
-		    private String starttime;
-		    private String endtime;
-		    private int upvote;
-		    private int comment;
-		    private String poem;
-		    public saitem(ShareItem satm) {
-		    	this.sid = satm.getSid();
-		    	this.uid = satm.getUid();
-		    	this.username = satm.getUsername();
-		    	this.title = satm.getTitle();
-		    	this.picnum = satm.getPicnum();
-		    	this.starttime = satm.getStarttime().toString();
-		    	this.endtime = satm.getEndtime().toString();
-		    	this.upvote = satm.getUpvote();
-		    	this.comment = satm.getComment();
-		    	this.poem = satm.getPoem();
-			}
-		    
-		    public String getSid() {
-				return sid;
-			}
-			public void setSid(String sid) {
-				this.sid = sid;
-			}
-			public int getUid() {
-				return uid;
-			}
-			public void setUid(int uid) {
-				this.uid = uid;
-			}
-			public String getUsername() {
-				return username;
-			}
-			public void setUsername(String username) {
-				this.username = username;
-			}
-			public String getTitle() {
-				return title;
-			}
-			public void setTitle(String title) {
-				this.title = title;
-			}
-			public int getPicnum() {
-				return picnum;
-			}
-			public void setPicnum(int picnum) {
-				this.picnum = picnum;
-			}
-			public String getStarttime() {
-				return starttime;
-			}
-			public void setStarttime(String starttime) {
-				this.starttime = starttime;
-			}
-			public String getEndtime() {
-				return endtime;
-			}
-			public void setEndtime(String endtime) {
-				this.endtime = endtime;
-			}
-			public int getUpvote() {
-				return upvote;
-			}
-			public void setUpvote(int upvote) {
-				this.upvote = upvote;
-			}
-			public int getComment() {
-				return comment;
-			}
-			public void setComment(int comment) {
-				this.comment = comment;
-			}
-			public String getPoem() {
-				return poem;
-			}
-			public void setPoem(String poem) {
-				this.poem = poem;
-			}
-		} 
+
 	 
 	 
 }

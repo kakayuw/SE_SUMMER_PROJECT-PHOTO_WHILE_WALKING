@@ -36,7 +36,7 @@ public class ShareItemServiceImpl implements ShareItemService {
 	
 	
 	public List<ShareItem> getAll() {
-		return shareItemDao.getAllShareItems();
+		return shareItemDao.getPublicShareItems();
 	}
 
 	public List<ShareItem> getAllbyUid(int uid) {
@@ -45,7 +45,7 @@ public class ShareItemServiceImpl implements ShareItemService {
 		List<ShareItem> shareItems = new ArrayList<ShareItem>();
 		List<ShareItem> add = new ArrayList<ShareItem>();
 		for (int i = 0; i < size; i++){ 
-			add = shareItemDao.getShareItemByUid(contacters.get(i).getUid2());
+			add = shareItemDao.getFriendShareByUid(contacters.get(i).getUid2());
 			shareItems.addAll(add);
 		}
 		return shareItems;
@@ -56,8 +56,8 @@ public class ShareItemServiceImpl implements ShareItemService {
 	}
 
 
-	public int addShareItem(ShareItem shareItem){ 
-		return shareItemDao.save(shareItem);
+	public void addShareItem(ShareItem shareItem){ 
+		shareItemDao.save(shareItem);
 	}
 
 	public List<ShareItem> getTopNumber(int number){  
@@ -70,5 +70,17 @@ public class ShareItemServiceImpl implements ShareItemService {
 	
 	public void changeBest(String sid){  
 		shareItemDao.changeBest(sid);
+	}
+	
+	public void upvote(String sid){       
+		ShareItem shareItem = shareItemDao.getShareItemById(sid);
+		shareItem.setUpvote(shareItem.getUpvote()+1);
+		shareItemDao.update(shareItem);
+	}
+	
+	public void cancelUpvote(String sid){  
+		ShareItem shareItem = shareItemDao.getShareItemById(sid);
+		shareItem.setUpvote(shareItem.getUpvote()-1);
+		shareItemDao.update(shareItem);
 	}
 }

@@ -7,8 +7,10 @@ import javax.xml.crypto.Data;
 
 import model.ShareItem;
 import model.User;
+import model.BestShare;
 
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.cfg.QuerySecondPass;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -16,8 +18,8 @@ import dao.ShareItemDao;
 
 public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDao {
 
-	public Integer save(ShareItem shareItem) {
-		return (Integer) getHibernateTemplate().save(shareItem);
+	public void save(ShareItem shareItem) {
+		getHibernateTemplate().save(shareItem);
 	}
 
 	public void delete(ShareItem shareItem) {
@@ -30,7 +32,7 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 	}
 
 	@Override
-	public ShareItem getShareItemById(int sid) {
+	public ShareItem getShareItemById(String sid) {
 		@SuppressWarnings("unchecked")
 		List<ShareItem> shareItems = (List<ShareItem>) getHibernateTemplate().find(
 				"from ShareItem as s where s.sid=?", sid);
@@ -39,10 +41,10 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 	}
 
 	@Override
-	public List<ShareItem> getAllShareItems() {
+	public List<ShareItem> getPublicShareItems() {
 		@SuppressWarnings("unchecked")
 		List<ShareItem> shareItems = (List<ShareItem>) getHibernateTemplate()
-				.find("from ShareItem");
+				.find("from ShareItem as s where s.type=1");
 		return shareItems;
 	}
 
@@ -54,37 +56,40 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 		return shareItems;
 	}
 	
-	public List<ShareItem> getTopNumber(int number){   
+	public List<ShareItem> getFriendShareByUid(int uid) {
+		@SuppressWarnings("unchecked")
+		List<ShareItem> shareItems = (List<ShareItem>) getHibernateTemplate().find(
+				"from ShareItem as s where s.uid=? and s.type=0", uid);
+		return shareItems;
+	}
+	
+	public List<ShareItem> getTopNumber(int number){  
+		Session session = getSession();
+		SQLQuery sqlQuery = session.createSQLQuery("CALL shareTopNumber(?)");
+		sqlQuery.setInteger(0, number);
+		sqlQuery.executeUpdate();
+		SQLQuery query = getSession().createSQLQuery("select * from selected_shareitem");
+        List<ShareItem> get_shareitem  =(List<ShareItem>)query.list();
+		
+		/*
 		SQLQuery sqlQuery = getSession().createSQLQuery("CALL shareTopNumber(?)");
 		sqlQuery.setInteger(0, number);
 		sqlQuery.executeUpdate();
 		getSession().close();
-		//getSessionFactory().getCurrentSession().close();
         SQLQuery query = getSession().createSQLQuery("select * from selected_shareitem");
-        //query.executeUpdate();
         List<ShareItem> get_shareitem  =(List<ShareItem>)query.list();
         getSession().close();
         SQLQuery query2 = getSession().createSQLQuery("select * from user");
-        //query.executeUpdate();
         List<User> get_user  =(List<User>)query2.list();
-//		JSONArray items = JSONArray.fromObject(sqlQuery.list());
-//		List<ShareItem> shareItems = new ArrayList<>();
-//		for(int i=0; i<items.size(); ++i){
-//			ShareItem shareItem = new ShareItem();
-//			JSONObject jsonObject = items.getJSONObject(i);
-//			shareItem.setComment(jsonObject.getInt("comment"));
-//			//shareItems.add(new ShareItem())
-//		}
-     //   getSessionFactory().getCurrentSession().close();
-  //      if (getSessionFactory().getCurrentSession().isOpen()){
-   //     	getSessionFactory().getCurrentSession().close();
-   //     }
+
         getSession().close();
+        */
         return get_shareitem;
 		
 	}
 	
 	public ShareItem getBest(){   
+		/*
         SQLQuery query = getSession().createSQLQuery("select sid from bestshare where type = 1");
         //query.executeUpdate();
         List<String> get_bestshare  =(List<String>)query.list();
@@ -92,32 +97,44 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
         if (get_bestshare.size() > 0){   
         	bestsid = get_bestshare.get(0);
         }
-
+		*/
+		@SuppressWarnings("unchecked")
+		List<BestShare> bestShares = (List<BestShare>) getHibernateTemplate().find(
+				"from BestShare as b where b.type=1");
+		String bestsid = "";
+		if (bestShares.size() > 0 ){   
+			bestsid = bestShares.get(0).getSid();
+		}
         @SuppressWarnings("unchecked")
 		List<ShareItem> shareItems = (List<ShareItem>) getHibernateTemplate().find(
 				"from ShareItem as s where s.sid=?", bestsid);
         if (shareItems.size() >0){
         	return shareItems.get(0);
         }
-       // if (getSessionFactory().getCurrentSession().isOpen()){
-      //  	getSessionFactory().getCurrentSession().close();
-      //  }
-        getSession().close();
+        //getSession().close();
 		return null;
 		
 	}
 	
 	public void changeBest(String sid){
+		Session session = getSession();
+		SQLQuery sqlquery = session.createSQLQuery("update bestshare set type = 0");
+        sqlquery.executeUpdate();
+        SQLQuery query = session.createSQLQuery("insert into bestshare(sid,time,type) values(?,?,1)");
+        java.sql.Timestamp date = new java.sql.Timestamp(new Date().getTime()); 
+        query.setString(0, sid);
+		query.setTimestamp(1, date);
+		query.executeUpdate();
+		/*
         SQLQuery sqlquery = getSession().createSQLQuery("update bestshare set type = 0");
         sqlquery.executeUpdate();
         getSession().close();
-      //  getSessionFactory().getCurrentSession().close();
         SQLQuery query = getSession().createSQLQuery("insert into bestshare(sid,time,type) values(?,?,1)");
         java.sql.Timestamp date = new java.sql.Timestamp(new Date().getTime()); 
         query.setString(0, sid);
 		query.setTimestamp(1, date);
 		query.executeUpdate();
 		getSession().close();
-		//getSessionFactory().getCurrentSession().close();
+		*/
 	}
 }

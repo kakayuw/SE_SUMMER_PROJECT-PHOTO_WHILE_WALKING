@@ -31,6 +31,7 @@
 				<value>model/Contacter.hbm.xml</value>
 				<value>model/Admin.hbm.xml</value>
 				<value>model/ShareItem.hbm.xml</value>
+				<value>model/BestShare.hbm.xml</value>
 			</list>
 		</property>
 		<!-- Hibernate SessionFactory -->

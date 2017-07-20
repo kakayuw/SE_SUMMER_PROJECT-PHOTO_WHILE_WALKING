@@ -1,8 +1,9 @@
 package model;
 
 import java.security.Timestamp;
-import java.sql.Date;
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ShareItem {
 	private String sid;
@@ -10,8 +11,8 @@ public class ShareItem {
     private String username;
     private String title;
     private int picnum;
-    private java.util.Date starttime;
-    private java.util.Date endtime;
+    private Date starttime;
+    private Date endtime;
     private int upvote;
     private int comment;
     private String poem;
@@ -32,6 +33,25 @@ public class ShareItem {
     	this.upvote = upvote;
     	this.comment = comment;
     	this.poem = poem;
+    }
+    
+    public ShareItem(Saitem satm){
+    	this.sid = satm.getSid();
+    	this.uid = satm.getUid();
+    	this.username = satm.getUsername();
+    	this.title = satm.getTitle();
+    	this.picnum = satm.getPicnum();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	try {
+			this.starttime = sdf.parse(satm.getStarttime());
+	    	this.endtime = sdf.parse(satm.getEndtime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	this.upvote = satm.getUpvote();
+    	this.comment = satm.getComment();
+    	this.poem = satm.getPoem();
+    	this.type = satm.getType();
     }
 
     public int getUid() {
@@ -91,11 +111,11 @@ public class ShareItem {
 	}
 
 
-	public java.util.Date getStarttime() {
+	public Date getStarttime() {
 		return starttime;
 	}
 
-	public void setStarttime(java.util.Date starttime) {
+	public void setStarttime(Date starttime) {
 		this.starttime = starttime;
 	}
 
@@ -107,11 +127,11 @@ public class ShareItem {
 		this.poem = poem;
 	}
 
-	public java.util.Date getEndtime() {
+	public Date getEndtime() {
 		return endtime;
 	}
 
-	public void setEndtime(java.util.Date endtime) {
+	public void setEndtime(Date endtime) {
 		this.endtime = endtime;
 	}
 

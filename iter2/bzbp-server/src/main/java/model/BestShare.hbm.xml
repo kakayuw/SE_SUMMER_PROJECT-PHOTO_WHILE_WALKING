@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+ <class name="model.BestShare" table="bestshare">
+  <id name="sid" type="java.lang.String">
+   <column name="sid"/>
+  </id>
+  <property name="time" type="java.util.Date">
+   <column name="time"/>
+  </property>
+  <property name="type" type="int">
+   <column name="type"/>
+  </property>
+ </class>
+</hibernate-mapping>

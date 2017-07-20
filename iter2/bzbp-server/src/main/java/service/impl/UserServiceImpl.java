@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public String login(User user) {
 		User u = userDao.getUserByUsername(user.getUsername());
 		if (u != null && u.getPassword().equals(user.getPassword())) {
-			return Integer.toString(u.getUid());
+			return "u"+Integer.toString(u.getUid());
 		}
 		else
 			return "failed";

@@ -17,12 +17,16 @@ public interface ShareItemService {
 	
 	public List<ShareItem> getMyAll(int uid);
 	
-	public int addShareItem(ShareItem shareItem);
+	public void addShareItem(ShareItem shareItem);
 	
 	public List<ShareItem> getTopNumber(int number);
 	
 	public ShareItem getBest();
 	
 	public void changeBest(String sid);
+	
+	public void upvote(String sid);
+	
+	public void cancelUpvote(String sid);
 
 }

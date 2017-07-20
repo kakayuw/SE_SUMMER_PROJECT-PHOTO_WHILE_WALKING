@@ -115,6 +115,7 @@ public class UserRestful
 		 System.out.println("login");
 		 System.out.println(user.getUsername());
 		 System.out.println(user.getPassword());
+		 System.out.println(userService.login(user));
 		 return userService.login(user);
      }
 	 

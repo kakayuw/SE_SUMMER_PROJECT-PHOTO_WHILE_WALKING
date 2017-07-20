@@ -6,7 +6,7 @@
  <class name="model.ShareItem" table="shareitem">
   <id name="sid" type="java.lang.String">
    <column name="sid"/>
-   <generator class="identity"/>
+   <generator class="assigned"/>
   </id>
   <property generated="never" lazy="false" name="uid" type="int">
    <column name="uid"/>
