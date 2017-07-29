@@ -1,23 +1,30 @@
 package dao.impl;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.rowset.JdbcRowSet;
+import javax.sql.rowset.RowSetFactory;
+import javax.sql.rowset.RowSetProvider;
 import javax.xml.crypto.Data;
 
 import model.ShareItem;
 import model.User;
 import model.BestShare;
+import model.SelectedShare;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.cfg.QuerySecondPass;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import dao.ShareItemDao;
 
 public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDao {
-
+	
 	public void save(ShareItem shareItem) {
 		getHibernateTemplate().save(shareItem);
 	}
@@ -47,7 +54,45 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 				.find("from ShareItem as s where s.type=1");
 		return shareItems;
 	}
+	
+	public List<SelectedShare> getPublicShareItems(int pagenum, int size) {
+		Session session = getSession();
+		SQLQuery query = session.createSQLQuery("call getshare(?,?)");
+		query.setInteger(0, pagenum);
+		query.setInteger(1, size);
+		query.executeUpdate();
+		@SuppressWarnings("unchecked")
+        List<SelectedShare> get_shareitems = (List<SelectedShare>) getHibernateTemplate().find(
+				"from SelectedShare");
+        return get_shareitems;
+	}
+	
+	public List<SelectedShare> getFriendShareItems(int pagenum, int size, int uid) {
+		Session session = getSession();
+		SQLQuery query = session.createSQLQuery("call getsharebyuid(?,?,?)");
+		query.setInteger(0, pagenum);
+		query.setInteger(1, size);
+		query.setInteger(2, uid);
+		query.executeUpdate();
+		@SuppressWarnings("unchecked")
+        List<SelectedShare> get_shareitems = (List<SelectedShare>) getHibernateTemplate().find(
+				"from SelectedShare");
+        return get_shareitems;
+	}
 
+	public List<SelectedShare> getMyShareItems(int pagenum, int size, int uid) {
+		Session session = getSession();
+		SQLQuery query = session.createSQLQuery("call getmyshare(?,?,?)");
+		query.setInteger(0, pagenum);
+		query.setInteger(1, size);
+		query.setInteger(2, uid);
+		query.executeUpdate();
+		@SuppressWarnings("unchecked")
+        List<SelectedShare> get_shareitems = (List<SelectedShare>) getHibernateTemplate().find(
+				"from SelectedShare");
+        return get_shareitems;
+	}
+	
 	@Override
 	public List<ShareItem> getShareItemByUid(int uid) {
 		@SuppressWarnings("unchecked")
@@ -136,5 +181,35 @@ public class ShareItemDaoImpl extends HibernateDaoSupport implements ShareItemDa
 		query.executeUpdate();
 		getSession().close();
 		*/
+	}
+	
+	public String searchUpvote(int uid, String sid){
+		Session session = getSession();
+		SQLQuery sqlquery = session.createSQLQuery("select * from upvotedetail where uid = ? and sid = ?");
+		sqlquery.setInteger(0, uid);
+		sqlquery.setString(1, sid);
+		List<Object> get_upvote  =(List<Object>)sqlquery.list();
+		if (get_upvote.size()>0){
+			return "exist";
+		} 
+		else{ 
+			return "nothave";
+		}
+	}
+	
+	public void addUpvotedetail(int uid, String sid){  
+		Session session = getSession();
+		SQLQuery sqlquery = session.createSQLQuery("insert into upvotedetail(uid,sid) values(?,?)");
+		sqlquery.setInteger(0, uid);
+		sqlquery.setString(1, sid);
+		sqlquery.executeUpdate();
+	}
+	
+	public void cancelUpvotedetail(int uid, String sid){  
+		Session session = getSession();
+		SQLQuery sqlquery = session.createSQLQuery("delete from upvotedetail where uid = ? and sid = ?");
+		sqlquery.setInteger(0, uid);
+		sqlquery.setString(1, sid);
+		sqlquery.executeUpdate();
 	}
 }

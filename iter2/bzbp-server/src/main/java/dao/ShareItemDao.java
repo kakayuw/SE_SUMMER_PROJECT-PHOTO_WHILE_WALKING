@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import model.SelectedShare;
 import model.ShareItem;;
 
 public interface ShareItemDao {
@@ -15,6 +16,12 @@ public interface ShareItemDao {
 	public ShareItem getShareItemById(String sid);
 	
 	public List<ShareItem> getPublicShareItems();
+	
+	public List<SelectedShare> getPublicShareItems(int pagenum, int size);
+	
+	public List<SelectedShare> getFriendShareItems(int pagenum, int size, int uid);
+	
+	public List<SelectedShare> getMyShareItems(int pagenum, int size, int uid);
 
 	public List<ShareItem> getShareItemByUid(int uid);
 	
@@ -25,4 +32,10 @@ public interface ShareItemDao {
 	public ShareItem getBest();
 	
 	public void changeBest(String sid);
+	
+	public String searchUpvote(int uid, String sid);
+	
+	public void addUpvotedetail(int uid, String sid);
+	
+	public void cancelUpvotedetail(int uid, String sid);
 }

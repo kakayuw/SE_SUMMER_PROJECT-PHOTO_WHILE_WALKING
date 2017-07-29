@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import model.ShareItem;
 import model.Saitem;
+import model.SelectedShare;
 import net.sf.json.JSONObject;
 import service.RouteService;
 import service.RoutepicService;
@@ -28,7 +29,7 @@ public class ShareRestful {
 	private RouteService routeService = (RouteService) SpringContextUtil.getBean("routeService");
 	private RoutepicService routepicService = (RoutepicService) SpringContextUtil.getBean("routepicService");
 	
-
+/*
 	@GET
     @Path("/getAll/")
 	 @Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +42,7 @@ public class ShareRestful {
 		 }
 		 return sList;
 	}
-	 
+	
 	@GET
     @Path("/friendGetAll/{uid}")
 	 @Produces(MediaType.APPLICATION_JSON)
@@ -62,6 +63,61 @@ public class ShareRestful {
 	 public List<Saitem> myGetAll(@PathParam("uid") int uid){
 		 System.out.println("myGetAll");
 		 List<ShareItem> shareItems = shareItemService.getMyAll(uid);
+		 List<Saitem> sList = new ArrayList<>();
+		 for(ShareItem si: shareItems){
+			 sList.add(new Saitem(si));
+		 }
+		 return sList;
+	 }
+*/	
+	@GET
+    @Path("/getAll/{pagenum}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<Saitem> getAll(@PathParam("pagenum") int pagenum){
+		 System.out.println("getall");
+		 List<SelectedShare> get_Shares = shareItemService.getAll(pagenum, 1);
+		 List<ShareItem> shareItems = new ArrayList<ShareItem>();
+		 for (int i = 0; i < get_Shares.size(); i++){
+			 ShareItem shareItem = new ShareItem(get_Shares.get(i));
+			 shareItems.add(shareItem);
+		 }
+		 List<Saitem> sList = new ArrayList<>();
+		 for(ShareItem si: shareItems){
+			 sList.add(new Saitem(si));
+		 }
+		 return sList;
+	}
+	 
+	@GET
+    @Path("/friendGetAll/{uid}/{pagenum}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<Saitem> friendGetAll(@PathParam("uid") int uid,@PathParam("pagenum") int pagenum){
+		 System.out.println("friendGetAll");
+		 List<SelectedShare> get_Shares = shareItemService.getFriendAll(pagenum, 1, uid);
+		 List<ShareItem> shareItems = new ArrayList<ShareItem>();
+		 for (int i = 0; i < get_Shares.size(); i++){
+			 ShareItem shareItem = new ShareItem(get_Shares.get(i));
+			 shareItems.add(shareItem);
+		 }
+		 List<Saitem> sList = new ArrayList<>();
+		 for(ShareItem si: shareItems){
+			 sList.add(new Saitem(si));
+		 }
+		 return sList;
+		 
+	 }
+	
+	@GET
+    @Path("/myGetAll/{uid}/{pagenum}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<Saitem> myGetAll(@PathParam("uid") int uid,@PathParam("pagenum") int pagenum){
+		 System.out.println("myGetAll");
+		 List<SelectedShare> get_Shares = shareItemService.getMyAll(pagenum, 1, uid);
+		 List<ShareItem> shareItems = new ArrayList<ShareItem>();
+		 for (int i = 0; i < get_Shares.size(); i++){
+			 ShareItem shareItem = new ShareItem(get_Shares.get(i));
+			 shareItems.add(shareItem);
+		 }
 		 List<Saitem> sList = new ArrayList<>();
 		 for(ShareItem si: shareItems){
 			 sList.add(new Saitem(si));
@@ -132,21 +188,28 @@ public class ShareRestful {
 	 }
 	 
 	 @GET
-	 @Path("/upvote/{sid}")
+	 @Path("/upvote/{sid}/{uid}")
 	 @Produces("text/html")
-	 public String upvote(@PathParam("sid") String sid){
+	 public String upvote(@PathParam("sid") String sid,@PathParam("uid") int uid){
 		 System.out.println("upvote");
-		 shareItemService.upvote(sid);
+		 return shareItemService.upvote(uid,sid);
+	 }
+	 
+	 @GET
+	 @Path("/cancelUpvote/{sid}/{uid}")
+	 @Produces("text/html")
+	 public String cancelUpvote(@PathParam("sid") String sid,@PathParam("uid") int uid){
+		 System.out.println("cancelUpvote");
+		 shareItemService.cancelUpvote(uid,sid);
 		 return "success";
 	 }
 	 
 	 @GET
-	 @Path("/cancelUpvote/{sid}")
+	 @Path("/searchUpvote/{sid}/{uid}")
 	 @Produces("text/html")
-	 public String cancelUpvote(@PathParam("sid") String sid){
-		 System.out.println("cancelUpvote");
-		 shareItemService.cancelUpvote(sid);
-		 return "success";
+	 public String searchUpvote(@PathParam("sid") String sid,@PathParam("uid") int uid){
+		 System.out.println("searchUpvote");
+		 return shareItemService.searchUpvote(uid, sid);
 	 }
 	 
 	 @POST

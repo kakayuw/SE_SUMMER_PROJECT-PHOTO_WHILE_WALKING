@@ -19,5 +19,9 @@ public interface UserDao {
 	public User getUserByUsername(String username);
 
 	public List<User> getAllUsers();
+	
+	public List<User> searchUserByName(String username);
+	
+	public List<User> searchUserByBoth(String idname);
 
 }
