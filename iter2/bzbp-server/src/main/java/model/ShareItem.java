@@ -22,17 +22,32 @@ public class ShareItem {
     	
     }
     
-    public ShareItem(String sid, int uid, String username, String title, int picnum, java.util.Date starttime, java.util.Date endtime, int upvote, int comment, String poem){ 
+    public ShareItem(String sid, int uid, String username, String title, int picnum, java.util.Date starttime, java.util.Date endtime, int upvote, int comment, String poem,int type){ 
     	this.sid = sid;
     	this.uid = uid;
     	this.username = username;
     	this.title = title;
     	this.picnum = picnum;
     	this.starttime = starttime;
-    	this.setEndtime(endtime);
+    	this.endtime = endtime;
     	this.upvote = upvote;
     	this.comment = comment;
     	this.poem = poem;
+    	this.type = type;
+    }
+    
+    public ShareItem(SelectedShare selectedShare){ 
+    	this.sid = selectedShare.getSid();
+    	this.uid = selectedShare.getUid();
+    	this.username = selectedShare.getUsername();
+    	this.title = selectedShare.getTitle();
+    	this.picnum = selectedShare.getPicnum();
+    	this.starttime = selectedShare.getStarttime();
+    	this.endtime = selectedShare.getEndtime();
+    	this.upvote = selectedShare.getUpvote();
+    	this.comment = selectedShare.getComment();
+    	this.poem = selectedShare.getPoem();
+    	this.type = selectedShare.getType();
     }
     
     public ShareItem(Saitem satm){

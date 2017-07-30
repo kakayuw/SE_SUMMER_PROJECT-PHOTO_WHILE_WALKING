@@ -1,5 +1,8 @@
 package service.impl;
 
+import java.util.List;
+import java.util.regex.Pattern;
+
 import dao.UserDao;
 import model.User;
 import service.UserService;
@@ -61,5 +64,17 @@ public class UserServiceImpl implements UserService {
 		userDao.delete(user);
 	}
 
+	@Override
+	public List<User> searchUser(String idname){
+		if(isInteger(idname)){
+			return userDao.searchUserByBoth(idname);
+		}else{
+			return userDao.searchUserByName(idname);
+		}
+	}
 
+	private static boolean isInteger(String str) {  
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");  
+        return pattern.matcher(str).matches();  
+  	}
 }

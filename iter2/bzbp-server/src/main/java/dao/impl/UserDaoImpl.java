@@ -52,5 +52,19 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		User user = users.size() > 0 ? users.get(0) : null;
 		return user;
 	}
+
+	public List<User> searchUserByName(String username){
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) getHibernateTemplate().find(
+				"from User as u where u.username like '%"+username+"%'");
+		return users;	
+	}
 	
+	public List<User> searchUserByBoth(String idname){
+		int uid = Integer.parseInt(idname);
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) getHibernateTemplate().find(
+				"from User as u where u.uid="+uid+" or u.username like '%"+idname+"%'");
+		return users;		
+	}
 }

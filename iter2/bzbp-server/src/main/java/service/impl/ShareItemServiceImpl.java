@@ -6,6 +6,7 @@ import java.util.List;
 import dao.ContacterDao;
 import dao.ShareItemDao;
 import model.Contacter;
+import model.SelectedShare;
 import model.ShareItem;
 import service.ShareItemService;
 
@@ -33,12 +34,15 @@ public class ShareItemServiceImpl implements ShareItemService {
 		this.contacterDao = contacterDao;
 	}
 
-	
-	
 	public List<ShareItem> getAll() {
 		return shareItemDao.getPublicShareItems();
 	}
-
+	
+	public List<SelectedShare> getAll(int pagenum, int size){ 
+		return shareItemDao.getPublicShareItems(pagenum, size);
+	}
+	
+	
 	public List<ShareItem> getAllbyUid(int uid) {
 		List<Contacter> contacters = contacterDao.getContacterById(uid);
 		int size  = contacters.size();
@@ -49,6 +53,14 @@ public class ShareItemServiceImpl implements ShareItemService {
 			shareItems.addAll(add);
 		}
 		return shareItems;
+	}
+	
+	public List<SelectedShare> getMyAll(int pagenum, int size, int uid){
+		return shareItemDao.getMyShareItems(pagenum, size, uid);
+	}
+	
+	public List<SelectedShare> getFriendAll(int pagenum, int size, int uid){  
+		return shareItemDao.getFriendShareItems(pagenum, size, uid);
 	}
 	
 	public List<ShareItem> getMyAll(int uid){  
@@ -72,15 +84,25 @@ public class ShareItemServiceImpl implements ShareItemService {
 		shareItemDao.changeBest(sid);
 	}
 	
-	public void upvote(String sid){       
-		ShareItem shareItem = shareItemDao.getShareItemById(sid);
-		shareItem.setUpvote(shareItem.getUpvote()+1);
-		shareItemDao.update(shareItem);
+	public String upvote(int uid,String sid){       
+		if (shareItemDao.searchUpvote(uid, sid).equals("nothave")){
+			ShareItem shareItem = shareItemDao.getShareItemById(sid);
+			shareItem.setUpvote(shareItem.getUpvote()+1);
+			shareItemDao.update(shareItem);
+			shareItemDao.addUpvotedetail(uid, sid);
+			return "success";
+		}
+		return "duplicate";
 	}
 	
-	public void cancelUpvote(String sid){  
+	public void cancelUpvote(int uid,String sid){  
 		ShareItem shareItem = shareItemDao.getShareItemById(sid);
 		shareItem.setUpvote(shareItem.getUpvote()-1);
 		shareItemDao.update(shareItem);
+		shareItemDao.cancelUpvotedetail(uid, sid);
+	}
+	
+	public String searchUpvote(int uid, String sid){
+		return shareItemDao.searchUpvote(uid, sid);
 	}
 }

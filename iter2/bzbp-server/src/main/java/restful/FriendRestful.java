@@ -1,16 +1,8 @@
 package restful;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,7 +19,7 @@ import model.Contacter;
 import model.Friend;
 import model.User;
 import service.ContacterService;
-import service.UserpicService;
+import service.UserService;
 import util.SpringContextUtil;
 
 @Path("/friend")
@@ -35,6 +27,7 @@ public class FriendRestful
 {
 
 	private ContacterService contacterService=(ContacterService) SpringContextUtil.getBean("contacterService");
+	private UserService userService=(UserService) SpringContextUtil.getBean("userService");
 
 	 
 	 @POST
@@ -104,4 +97,16 @@ public class FriendRestful
 		 return "success";
 	 }
 	 
+	 @GET
+	 @Path("/search/{idname}")
+	 @Produces(MediaType.APPLICATION_JSON)
+	 public List<User> search(@PathParam("idname") String idname){
+		 //int uid = 1;
+		 System.out.println("search");
+		 System.out.println(idname);
+
+		 List<User> users = userService.searchUser(idname);
+		 return users;
+	 }
+
 }
