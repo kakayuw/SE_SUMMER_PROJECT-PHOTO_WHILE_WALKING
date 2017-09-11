@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingTop="15dp"
+        android:background="@color/primary"
+        android:weightSum="0.9">
+        <LinearLayout
+            android:id="@+id/profile_phone_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:clickable="false"
+                app:srcCompat="@drawable/back"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="更换手机号码"
+                android:textColor="@color/accent"
+                android:textSize="22sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/border"
+        android:orientation="vertical"
+        android:showDividers="middle">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/accent"
+            android:divider="@drawable/hborder"
+            android:showDividers="middle"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <EditText
+                android:id="@+id/profile_phone_input_number"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.65"
+                android:padding="10dp"
+                android:background="@color/accent"
+                android:gravity="top"
+                android:textColor="@color/black"
+                android:hint="请输入手机号码"
+                android:maxLength="11"
+                android:inputType="number"/>
+
+            <LinearLayout
+                android:id="@+id/profile_phone_get_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.35"
+                android:background="@drawable/ripple2"
+                android:clickable="true">
+                <TextView
+                    android:id="@+id/profile_phone_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="发送验证码"
+                    android:textColor="@color/base"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/accent"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/profile_phone_input_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:background="@color/accent"
+                android:textColor="@color/black"
+                android:gravity="top"
+                android:hint="填写验证码"
+                android:maxLength="6"
+                android:inputType="number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <LinearLayout
+            android:id="@+id/profile_phone_submit"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/ripple1"
+            android:clickable="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="确认更换"
+                android:textColor="@color/accent"
+                android:textSize="19sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

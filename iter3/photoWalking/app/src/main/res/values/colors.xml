@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="primary">#E43F3F</color>
+  <color name="primary_dark">#E12929</color>
+  <color name="primary_darker">#CC1D1D</color>
+  <color name="accent">#FFFFFF</color>
+
+  <color name="translucent">#90000000</color>
+
+  <color name="black">#000000</color>
+  <color name="jet">#222222</color>
+  <color name="oil">#333333</color>
+  <color name="gray">#4C4C4C</color>
+  <color name="monsoon">#777777</color>
+  <color name="jumbo">#888888</color>
+  <color name="aluminum">#999999</color>
+  <color name="base">#AAAAAA</color>
+  <color name="iron">#CCCCCC</color>
+  <color name="lightgrey">#EEEEEE</color>
+  <color name="white">#FFFFFF</color>
+
+  <color name="blue">#0000FF</color>
+  <color name="dodger_blue_dark">#0070FF</color>
+  <color name="dodger_blue">#1E90FF</color>
+  <color name="deep_sky_blue">#00BFFF</color>
+  <color name="dark_turquoise">#00CED1</color>
+
+  <!-- row model view -->
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
+
+  <color name="swipeoption_green">#36CF8E</color>
+  <color name="swipeoption_blue">#3693D0</color>
+  <color name="swipeoption_purple">#ff1744</color>
+</resources>

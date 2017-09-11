@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucent">
+    <LinearLayout
+        android:id="@+id/profile_avatar_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/border"
+        android:showDividers="middle"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/profile_avatar_camera"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/ripple2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="拍照"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_avatar_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/ripple2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="从相册选取"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_avatar_show"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/ripple2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="查看大图"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_avatar_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/accent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="取消"
+                android:textSize="18sp"
+                android:textColor="@color/primary"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

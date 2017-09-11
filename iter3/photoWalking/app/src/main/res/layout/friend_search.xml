@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:weightSum="1">
+        <LinearLayout
+            android:id="@+id/tab_fri_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingBottom="5dp"
+            android:layout_weight="0.2">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                app:srcCompat="@drawable/back"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/tab_fri_search_idname"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:background="@drawable/search_edittext_bg"
+            android:inputType="textWebEditText"
+            android:textSize="20sp"
+            android:textColor="@color/accent"
+            android:textColorHint="@color/iron"
+            android:hint="输入用户名/ID..."
+            android:imeOptions="actionSearch"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/jumbo"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/tab_fri_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:divider="@drawable/fsborder"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/tab_fri_search_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_gravity="center_horizontal"
+            android:text="获取用户信息失败,请重试"
+            android:textSize="22sp"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/tab_fri_search_loading"
+            android:layout_height="42dp"
+            android:layout_width="42dp"
+            android:layout_marginTop="150dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+</LinearLayout>

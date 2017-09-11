@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">边走边拍</string>
+    <string name="xytc">咸鱼突刺 \u00A9 2017</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_share_all">ShareAllActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="lager">\u003E</string>
+    <string name="less">\u003C</string>
+
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载...</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+
+    <string name="comment_hint">&#10148; 写评论</string>
+    <string name="description">是一款拍照分享App，在您行走的过程中记录路线轨迹并保存您所拍摄的照片。您可以将其分享给好友或是其他的本App使用者，也可以分享到微信朋友圈</string>
+</resources>

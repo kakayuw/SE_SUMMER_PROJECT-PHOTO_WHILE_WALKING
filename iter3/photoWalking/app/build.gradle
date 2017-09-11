@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'release'
+            keyPassword '123456'
+            storeFile file('C:/Users/10911/Desktop/release.jks')
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "com.photowalking"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        renderscriptTargetApi 20
+        renderscriptSupportModeEnabled true
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "8a89bc898d108d3e7aacdd6c",
+                JPUSH_CHANNEL : "developer-default",
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+repositories {
+    flatDir{
+        dirs 'libs'
+    }
+    jcenter()
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.linroid.filtermenu:library:0.2.+@aar'
+    compile 'com.android.support:support-vector-drawable:25.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
+    compile 'com.nantaphop:hoverTouchView:0.1'
+    compile 'com.github.clans:fab:1.6.4'
+    compile 'com.isseiaoki:simplecropview:1.1.6'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile files('libs/ActiveAndroid-master.jar')
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/BaiduTraceSDK_v3_0_4.jar')
+    compile files('libs/bos-android-sdk-1.0.2.jar')
+    compile files('libs/IndoorscapeAlbumPlugin.jar')
+    compile files('libs/MobCommons-2017.0607.1736.jar')
+    compile files('libs/MobTools-2017.0607.1736.jar')
+    compile name:'SMSSDK-3.0.0',ext:'aar'
+    compile name:'SMSSDKGUI-3.0.0',ext:'aar'
+    compile 'cn.jiguang.sdk:jpush:3.0.8'
+    compile 'cn.jiguang.sdk:jcore:1.1.6'
+    testCompile 'junit:junit:4.12'
+}

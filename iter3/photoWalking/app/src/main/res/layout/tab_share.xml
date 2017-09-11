@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingTop="15dp"
+        android:background="@color/primary"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="分享圈"
+            android:textColor="@color/accent"
+            android:textSize="24sp"/>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/sa_top"
+        layout="@layout/share_top_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/iron"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/share_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/accent"/>
+
+</LinearLayout>

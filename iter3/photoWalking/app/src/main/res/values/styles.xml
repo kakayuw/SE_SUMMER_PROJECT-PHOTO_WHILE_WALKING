@@ -1,0 +1,53 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorControlHighlight">@color/accent</item>
+        <item name="android:textColorHint">@color/monsoon</item>
+        <item name="android:textColorPrimary">@color/oil</item>
+
+        <item name="colorButtonNormal">@color/primary_darker</item>
+    </style>
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/accent</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="AppTheme.Light.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/jumbo</item>
+        <item name="android:background">@color/accent</item>
+    </style>
+
+    <style name="AppStartTheme" parent="AppTheme.Dark">
+        <item name="android:windowBackground">@drawable/startbg</item>
+    </style>
+
+    <style name="ButtonTheme" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/main_btn</item>
+        <item name="android:textColor">@drawable/btn_textcolor</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="LogSignBtnTheme" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/log_sign_btn</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="CommentEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/monsoon</item>
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

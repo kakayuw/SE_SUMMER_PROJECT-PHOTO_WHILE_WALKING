@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/accent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/jumbo"/>
+
+
+    <EditText
+        android:id="@+id/main_share_poem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="top"
+        android:minLines="15"
+        android:maxLines="15"
+        android:maxLength="140"
+        android:hint="输入美文或小诗"
+        android:background="@drawable/main_share_textview_border"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="28dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享给"/>
+        <LinearLayout
+            android:id="@+id/main_share_fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/friendshare"
+            android:orientation="vertical"/>
+        <TextView
+            android:id="@+id/main_share_fri_tv"
+            android:layout_width="14sp"
+            android:layout_height="wrap_content"
+            android:text="好友"
+            android:singleLine="false"
+            android:textSize="12sp"/>
+        <LinearLayout
+            android:id="@+id/main_share_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/allpeople"
+            android:orientation="vertical"/>
+        <TextView
+            android:id="@+id/main_share_all_tv"
+            android:layout_width="14sp"
+            android:layout_height="wrap_content"
+            android:text="大众"
+            android:singleLine="false"
+            android:textSize="12sp"/>
+        <LinearLayout
+            android:id="@+id/main_share_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/at"
+            android:orientation="vertical"/>
+        <TextView
+            android:id="@+id/main_share_one_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:singleLine="false"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/main_share_send"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="30dp"
+        android:text="上           传"
+        android:textSize="19sp"
+        style="@style/LogSignBtnTheme"/>
+
+</LinearLayout>

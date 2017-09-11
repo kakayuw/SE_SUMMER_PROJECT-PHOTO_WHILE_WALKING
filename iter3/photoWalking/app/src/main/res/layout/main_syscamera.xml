@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/accent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
+        <ImageView
+            android:id="@+id/result_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1.01"
+            android:background="@color/accent"
+            android:scaleType="centerInside" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_crop"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="裁剪" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_lv"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="滤镜" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

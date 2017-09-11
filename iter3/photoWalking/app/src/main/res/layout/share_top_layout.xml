@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/accent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <LinearLayout
+            android:id="@+id/fri_share_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripple2"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/fri_share_tab_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好友分享"
+                android:textSize="14sp"
+                android:textColor="@color/jumbo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/all_share_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripple2"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/all_share_tab_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大众分享"
+                android:textSize="14sp"
+                android:textColor="@color/jumbo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/my_share_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripple2"
+            android:gravity="center"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/my_share_tab_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的分享"
+                android:textSize="14sp"
+                android:textColor="@color/jumbo"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/share_indicator"
+        android:layout_width="120dp"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/primary"/>
+</RelativeLayout>

@@ -1,0 +1,147 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.photowalking">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WEAK_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 用于加快GPS首次定位-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <!-- 用于Android M及以上系统，申请加入忽略电池优化白名单-->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <!--<uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>-->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:name=".utils.MyApplication"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
+
+        <meta-data android:name="AA_DB_NAME" android:value="bzbp.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="2" />
+        <meta-data android:name="AA_MODELS"
+            android:value="com.photowalking.model.Trace, com.photowalking.model.Photo" />
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppStartTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.Dark"/>
+        <activity android:name=".VerifyPhoneActivity"
+            android:theme="@style/AppTheme.Dark"/>
+        <activity
+            android:name=".SignupActivity"
+            android:theme="@style/AppTheme.Dark"/>
+        <activity android:name=".FindPwdActivity"
+            android:theme="@style/AppTheme.Dark"/>
+        <activity
+            android:name=".FragmentsActity"
+            android:theme="@style/AppStartTheme"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
+
+        <!-- Main Activity -->
+        <activity android:name=".main.ViewDetailActivity"/>
+        <activity android:name=".main.EditTextActivity"/>
+        <activity android:name=".main.NewTraceActivity"/>
+        <activity android:name=".main.SysCameraActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
+        <!-- Friend Acivity -->
+        <activity android:name=".friends.SearchUserActivity"/>
+        <activity android:name=".friends.ShowUserInfoActivity"/>
+        <activity android:name=".friends.ApplyFriendActivity"/>
+        <activity android:name=".friends.ChangeRemarkActivity"/>
+        <activity android:name=".friends.AddFriendActivity" android:exported="false">
+            <intent-filter>
+                <action  android:name = "jpush.applyFriendAction"  />
+                <category  android:name = "jpush.applyFriendCategory"  />
+            </intent-filter >
+        </activity>
+
+        <receiver android:name=".receiver.MyReceiver" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.photowalking" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Share Acivity -->
+        <activity android:name=".share.ViewOthersDetailActivity"/>
+        <activity android:name=".share.AllCommentActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <!-- Profile Activity -->
+        <activity android:name=".profile.ProfileAboutActivity" />
+        <activity android:name=".profile.ProfileEditActivity" />
+        <activity android:name=".profile.ProfileChargeActivity" />
+        <activity android:name=".profile.ProfilePhoneActivity" />
+        <activity android:name=".profile.ProfilePwdActivity" />
+        <activity android:name=".profile.ProfileAvatarActivity"
+            android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".profile.AvatarChoseActivity"
+            android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".profile.AvatarShowActivity"
+            android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".profile.BonusActivity"/>
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <!-- BaiduMap SDK -->
+        <service
+            android:name="com.baidu.trace.LBSTraceService"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="4KGRmGFiQPdPzKAgw3cMN0Q1KOOraomY" />
+
+        <!-- MobSMS SDK -->
+        <meta-data android:name="Mob-AppKey" android:value="1fcece4c1052c"/>
+        <meta-data android:name="Mob-AppSecret" android:value="4824b11d6f8269b57678392ca91b4e95"/>
+    </application>
+
+</manifest>
