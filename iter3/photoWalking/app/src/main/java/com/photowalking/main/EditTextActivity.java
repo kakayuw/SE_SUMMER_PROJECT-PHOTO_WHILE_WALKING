@@ -129,6 +129,8 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
         si.setUpvote(0); //share to all
         init();
 
+
+
     }
 
     private void init(){
@@ -170,6 +172,8 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
                     public void run() {
                         OkManager okManager = new OkManager();
                         si.setPoem(text);
+                        List<Photo> photoList = new Select().from(Photo.class).where("traceid = ?", sid).execute();
+                        photoNumb = photoList.size();
                         si.setPicnum(photoNumb);
                         si.setType(type);
                         Gson g = new Gson();
@@ -178,8 +182,7 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
                         str = okManager.sendStringByPost(UrlPath.uploadSitemUrl,siStr);
                         if(str.equals("success")){
                             Log.e(">>>>>>>>>>","upload started.....");
-                            List<Photo> photoList = new Select().from(Photo.class).where("traceid = ?", sid).execute();
-                            List<UploadPhoto> photos = new ArrayList<UploadPhoto>();
+                            List<UploadPhoto> photos = new ArrayList<>();
                             for(Photo p: photoList)
                                 photos.add(new UploadPhoto(p));
                             UploadInfoStr uis = new UploadInfoStr(
@@ -198,15 +201,19 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
                             String classInfoStr = new Gson().toJson(uis);
                             okManager.sendStringByPost(UrlPath.uploadUrl, classInfoStr);
                             Log.e("<<<<<<<<<<","upload ended.....");
-                            uploadPicture(photos);
-                        }
-                        if(fileUploaded.equals("success")){
+                            fileUploaded = uploadPicture(photos);
+                            if(fileUploaded.equals("success")){
+                                str = "上传成功";
+                            }else{
+//                              okManager.deleteStringByGet(UrlPath.deleteSitemUrl);
+                            }
+                            FileUtil.deleteImage(EditTextActivity.this,UrlPath.tmpPic);
+                        }else if(str.equals("failed")){
+                            str = "已上传过";
+                        }else if(str.equals("wechat")){
                             str = "上传成功";
-                        }else{
+                        }else
                             str = "上传失败";
-//                            okManager.deleteStringByGet(UrlPath.deleteSitemUrl);
-                        }
-                        FileUtil.deleteImage(EditTextActivity.this,UrlPath.tmpPic);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -301,35 +308,9 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    private List<String> getPicturesFromTI() throws ParseException {
-        List<String> pictureFiles = new ArrayList<>();
-        String path = UrlPath.tracePath + ti.getTraceDate();
-        File dateFolder = new File(path);
-        File fileList[] = dateFolder.listFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//小写的mm表示的是分钟
-        Date start = sdf.parse(ti.getTraceDate() + " " + ti.getStartTime());
-        Date end = sdf.parse(ti.getTraceDate() + " " + ti.getEndTime());
-        for (int i = 0; i < fileList.length; i++) {
-            File filei = fileList[i];
-
-            if (filei.getName().contains(".jpg"))  {
-                String timei = filei.getName().substring(0,8);
-                Date time = sdf.parse(  ti.getTraceDate() + " " + timei);
-                if (time.after(start) && time.before(end)) {
-                    pictureFiles.add(filei.getName());
-                }
-
-            }
-        }
-        return pictureFiles;
-    }
-
-
-    private void uploadPicture(List<UploadPhoto> photos){
+    private String uploadPicture(List<UploadPhoto> photos){
         OkManager okManager = new OkManager();
         try {
-            photoNumb = photos.size();
-            Gson gson = new Gson();
             for (int i = 0; i < photoNumb; i++) {
                 Log.e(">>>>","upload "+i);
                 File file = new File(UrlPath.tmpPic);
@@ -344,6 +325,6 @@ public class EditTextActivity extends Activity implements View.OnClickListener{
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        fileUploaded = "success";
+        return "success";
     }
 }

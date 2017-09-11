@@ -44,8 +44,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +55,14 @@ import java.util.List;
 import com.photowalking.adapter.PhotoAdapter;
 import com.photowalking.model.Photo;
 import com.photowalking.model.PhotoInfo;
+import com.photowalking.model.ShareItem;
 import com.photowalking.model.Trace;
 import com.photowalking.model.TraceInfo;
+import com.photowalking.model.UploadInfoStr;
+import com.photowalking.model.UploadPhoto;
+import com.photowalking.utils.BitmapUtil;
 import com.photowalking.utils.FileUtil;
+import com.photowalking.utils.OkManager;
 import com.photowalking.utils.UrlPath;
 import com.photowalking.utils.geoDecodedUtil;
 import com.photowalking.viewUtils.StatusBarUtil;
@@ -87,23 +94,24 @@ public class ViewDetailActivity extends Activity {
     private String uname;
     private String traceid;
     private double miles;
+    private String str;
+    private int photoNumb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        StatusBarUtil.setTransparent(this);
         setContentView(R.layout.main_show_detail);
         final Intent intent1 = this.getIntent();
         final String date = intent1.getStringExtra("date");
         final String time = intent1.getStringExtra("time");
-        miles = intent1.getDoubleExtra("miles",0);
+        miles = Double.parseDouble(intent1.getStringExtra("miles"));
         uid = intent1.getStringExtra("me");
         uname = intent1.getStringExtra("uname");
         traceid = intent1.getStringExtra("traceid");
 
-        Trace trace = (Trace) new Select().from(Trace.class).where("traceid = ?", traceid).execute().get(0);
+        final Trace trace = (Trace) new Select().from(Trace.class).where("traceid = ?", traceid).execute().get(0);
         ti.setTraceName(trace.getTracename());
         ti.setTraceDate(trace.getTracedate());
         ti.setStartTime(trace.getStarttime());
@@ -122,7 +130,6 @@ public class ViewDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
-                String polyStr = gson.toJson(polylines);
                 String traceInfo = gson.toJson(ti);
                 Intent intent = new Intent(ViewDetailActivity.this, EditTextActivity.class);
                 intent.putExtra("me",uid);
@@ -138,6 +145,17 @@ public class ViewDetailActivity extends Activity {
         btnWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ShareItem si = new ShareItem();
+                si.setSid(ti.getTraceId());
+                si.setTitle(ti.getTraceName());
+                String stime = ti.getTraceDate() + " " + ti.getStartTime();
+                String etime = ti.getTraceDate() + " " + ti.getEndTime();
+                si.setStarttime(stime);
+                si.setEndtime(etime);
+                si.setUid(Integer.parseInt(uid));
+                si.setUsername(uname);
+                si.setUpvote(0); //share to all
+
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 ComponentName componentName = new ComponentName("com.tencent.mm","com.tencent.mm.ui.tools.ShareImgUI");
@@ -145,15 +163,89 @@ public class ViewDetailActivity extends Activity {
 //                shareIntent.setPackage("com.tencent.mm");
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "快来看我分享的路线与照片\n"+
-                        UrlPath.wechatShareUrl+ti.getTraceId());
+                        UrlPath.wechatShareUrl+traceid);
 //                startActivity(Intent.createChooser(shareIntent, "分享到"));
                 startActivity(shareIntent);
+
+                new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        OkManager okManager = new OkManager();
+                        List<Photo> photoList = new Select().from(Photo.class).where("traceid = ?", traceid).execute();
+                        photoNumb = photoList.size();
+                        si.setPicnum(photoNumb);
+                        si.setType(0);
+                        Gson g = new Gson();
+                        String siStr = g.toJson(si);
+                        String polylines = ((Trace) new Select().from(Trace.class).where("traceid = ?", traceid).execute().get(0)).getPolylines();
+                        str = okManager.sendStringByPost(UrlPath.uploadSitemUrl,siStr);
+                        if(str.equals("success")){
+                            Log.e(">>>>>>>>>>","upload started.....");
+                            List<UploadPhoto> photos = new ArrayList<>();
+                            for(Photo p: photoList)
+                                photos.add(new UploadPhoto(p));
+                            UploadInfoStr uis = new UploadInfoStr(
+                                    traceid,
+                                    Integer.parseInt(ti.getUserid()),
+                                    uname,
+                                    ti.getTraceName(),
+                                    ti.getStartTime(),
+                                    ti.getEndTime(),
+                                    ti.getTraceDate(),
+                                    miles,
+                                    photoList.size(),
+                                    polylines,
+                                    photos
+                            );
+                            String classInfoStr = new Gson().toJson(uis);
+                            okManager.sendStringByPost(UrlPath.uploadUrl, classInfoStr);
+                            Log.e("<<<<<<<<<<","upload ended.....");
+                            String fileUploaded = uploadPicture(photos);
+                            if(fileUploaded.equals("success")){
+                                str = "上传成功";
+                            }else{
+//                              okManager.deleteStringByGet(UrlPath.deleteSitemUrl);
+                            }
+                            FileUtil.deleteImage(ViewDetailActivity.this,UrlPath.tmpPic);
+                        }else if(str.equals("failed") || str.equals("wechat")){
+                            str = "上传成功";
+                        }else
+                            str = "上传失败";
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+                }).start();
             }
         });
 
         initMarker();
         loadTrace(date,time);
         new LoadPictureTask().execute();
+    }
+
+    private String uploadPicture(List<UploadPhoto> photos){
+        OkManager okManager = new OkManager();
+        try {
+            for (int i = 0; i < photoNumb; i++) {
+                Log.e(">>>>","upload "+i);
+                File file = new File(UrlPath.tmpPic);
+                FileOutputStream outputStream = new FileOutputStream(file);
+                Log.e(">>>",photos.get(i).getFilename());
+                Bitmap bitmap = BitmapUtil.decodeSampledBitmapFromFd(photos.get(i).getFilename(),170,190);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+
+                okManager.uploadFile(UrlPath.uploadPicUrl+traceid+"/"+i,file);
+                Log.e(">>>>","complete "+i);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "success";
     }
 
     private void initMarker() {
@@ -222,7 +314,6 @@ public class ViewDetailActivity extends Activity {
             imageView.setMi(new MyThumbnail.MyInterface() {
                 @Override
                 public void targetMethod() {
-                    /*mSameLocPic.setVisibility(View.GONE);*/
                     LatLng llA = getPositionFromPI(s);
                     MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdB).zIndex(9).draggable(false);
                     mBaiduMap.clear();

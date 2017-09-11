@@ -53,7 +53,7 @@ public class UrlPath {
     public static String uploadPicUrl = ip+"/share/savePhoto/";
     public static String displayPicUrl = ip+"/share/getPhoto/";
 
-    public static String wechatShareUrl = "http://115.159.74.217:8080/bzbp/bzbp/share.jsp?sid=      ";
+    public static String wechatShareUrl = "http://115.159.74.217:8080/bzbp/bzbp/share.jsp?sid=";
 
     /* profile urls */
     public static String updateUserUrl = ip + "/user/updateUser";

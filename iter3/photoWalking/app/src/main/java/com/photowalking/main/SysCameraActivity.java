@@ -123,9 +123,17 @@ public class SysCameraActivity extends Activity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode == RESULT_CANCELED){
-			FileUtil.deleteImage(SysCameraActivity.this,photo.getFilename());
-			finish();
+			if(requestCode == Crop.REQUEST_CROP){
+				;
+			}else{
+				FileUtil.deleteImage(SysCameraActivity.this,photo.getFilename());
+				new Delete().from(Photo.class).where("filename = ? ", photo.getFilename()).execute();
+				finish();
+			}
 		}else if (resultCode == RESULT_OK){
+			if(requestCode == Crop.REQUEST_CROP) {
+				finish();
+			}
 			ImageLoader.getInstance().displayImage("file://"+photo.getFilename(),  resultView);
 			if (requestCode == 0){
 			} else if (requestCode == Crop.REQUEST_PICK){
